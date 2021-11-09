@@ -1,6 +1,7 @@
 const axios = require("axios");
 const fs = require("fs");
 let config = fs.readFileSync("config.json");
+const writeToEnv = require("../utils/writeToEnv");
 
 const EMAIL = process.env.EMAIL;
 const API_KEY = process.env.API_KEY;
@@ -23,8 +24,7 @@ async function createNameSpace() {
     )
     .then((res) => {
       NAMESPACE_ID = res.data.result.id;
-      let newConfig = { ...JSON.parse(config), NAMESPACE_ID: NAMESPACE_ID };
-      fs.writeFileSync("config.json", JSON.stringify(newConfig));
+      writeToEnv("NAMESPACE_ID", NAMESPACE_ID);
     })
     .catch((err) => {
       console.log(err); // TODO: HANDLE ERROR
