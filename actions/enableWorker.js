@@ -11,7 +11,7 @@ async function enableWorker() {
   console.log("Enabling worker");
 
   try {
-    const enableWorker = await axios.post(
+    const result = await axios.post(
       `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/workers/scripts/${WORKER_SCRIPT_NAME}/subdomain`,
       JSON.stringify({ enabled: true }),
       {
@@ -28,7 +28,5 @@ async function enableWorker() {
     );
   }
 }
-
-enableWorker();
 
 module.exports = enableWorker;
