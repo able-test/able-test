@@ -14,7 +14,6 @@ const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
 async function createWorker() {
   const NAMESPACE_ID = process.env.NAMESPACE_ID;
   console.log("Creating worker");
-  console.log(NAMESPACE_ID);
   const workerScript = fs.readFileSync(`${__dirname}/abworker.js`, "utf8");
   const metadata = {
     body_part: "script",
