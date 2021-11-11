@@ -7,6 +7,7 @@ const API_KEY = process.env.API_KEY;
 const ACCOUNT_ID = process.env.ACCOUNT_ID;
 
 async function createRemoteConfig() {
+  console.log("Creating remote config");
   let NAMESPACE_ID = process.env.NAMESPACE_ID;
   await axios.put(
     `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/storage/kv/namespaces/${NAMESPACE_ID}/values/ab-config`,

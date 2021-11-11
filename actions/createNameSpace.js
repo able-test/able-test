@@ -9,6 +9,7 @@ const ACCOUNT_ID = process.env.ACCOUNT_ID;
 const TITLE = process.env.TITLE;
 
 async function createNameSpace() {
+  console.log("Creating namespace");
   let res = await axios.post(
     `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/storage/kv/namespaces`,
     JSON.stringify({ title: TITLE }),
