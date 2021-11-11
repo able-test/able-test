@@ -1,8 +1,8 @@
 const axios = require("axios");
 const fs = require("fs");
-let config = require("../config.json");
-const FormData = require("form-data");
-const fetch = require("node-fetch");
+let config = require("../config.json"); // Values supplied from dashboard
+const FormData = require("form-data"); // Axios has errors with the Cloudflare API on this route
+const fetch = require("node-fetch"); // Must use older version, newer versions are incompatible, check package.json for version number
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
 
@@ -11,6 +11,7 @@ const API_KEY = process.env.API_KEY;
 const ACCOUNT_ID = process.env.ACCOUNT_ID;
 const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
 
+// This function creates sends the edge worker script in file abworker.js and attaches it to the namespace given.
 async function createWorker() {
   const NAMESPACE_ID = process.env.NAMESPACE_ID;
   console.log("Creating worker");

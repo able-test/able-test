@@ -7,6 +7,7 @@ const API_KEY = process.env.API_KEY;
 const ACCOUNT_ID = process.env.ACCOUNT_ID;
 const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
 
+// Activate the edge worker
 async function enableWorker() {
   console.log("Enabling worker");
 

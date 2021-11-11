@@ -6,6 +6,7 @@ const createWorker = require("./actions/createWorker");
 const enableWorker = require("./actions/enableWorker.js");
 const validateConfig = require("./utils/validateConfig.js");
 
+// Deploy the AB Test and worker in full
 (async () => {
   if (!validateConfig()) {
     throw new Error(
