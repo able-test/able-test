@@ -10,7 +10,7 @@ For the KV store which will hold the config data for the AB test, you will need 
 
 - TITLE
 - WORKER_SCRIPT_NAME
-- DOMAIN*PATTERN - which subdomains you want the split to run on (put *.mydomain.com/\_ for all)
+- DOMAIN_PATTERN - which subdomains you want the split to run on (put \*.mydomain.com/\_ for all)
 - ZONE_ID
 
 ##### For current testing purposes run `node deploy.js`. Currently working on part 2 of the deploy process.
