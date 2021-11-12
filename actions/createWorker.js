@@ -13,7 +13,8 @@ const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
 
 // This function creates sends the edge worker script in file abworker.js and attaches it to the namespace given.
 async function createWorker() {
-  const NAMESPACE_ID = process.env.NAMESPACE_ID;
+  let namespace = fs.readFileSync("namespace.json", { encoding: "utf8" });
+  const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
   console.log("Creating worker");
   const workerScript = fs.readFileSync(`${__dirname}/abworker.js`, "utf8");
   const metadata = {

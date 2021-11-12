@@ -11,7 +11,8 @@ const ACCOUNT_ID = process.env.ACCOUNT_ID;
 // This function takes the split ratio, script tags, and main/test branch urls and strores them in an edge KV store to be accessed by the edge worker at runtime.
 async function createRemoteConfig() {
   console.log("Creating remote config");
-  let NAMESPACE_ID = process.env.NAMESPACE_ID;
+  let namespace = fs.readFileSync("namespace.json", { encoding: "utf8" });
+  const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
 
   try {
     const result = await axios.put(

@@ -1,7 +1,8 @@
 const axios = require("axios");
 const fs = require("fs");
-let config = fs.readFileSync("config.json");
-const writeToEnv = require("../utils/writeToEnv");
+let namespace = require("../namespace.json");
+const configDir = require("../utils/configDir");
+require("dotenv").config({ path: `${configDir}/.env` });
 
 const EMAIL = process.env.EMAIL;
 const API_KEY = process.env.API_KEY;
@@ -22,8 +23,10 @@ async function createNameSpace() {
         },
       }
     );
+
     let NAMESPACE_ID = res.data.result.id;
-    writeToEnv("NAMESPACE_ID", NAMESPACE_ID);
+    namespace.namespace_id = NAMESPACE_ID;
+    fs.writeFileSync("namespace.json", JSON.stringify(namespace));
   } catch {
     throw new Error(
       "\nFailed to create namespace on Cloudflare. Please try again."
