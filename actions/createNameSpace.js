@@ -1,6 +1,5 @@
 const axios = require("axios");
 const fs = require("fs");
-let namespace = require("../namespace.json");
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
 
@@ -11,6 +10,7 @@ const TITLE = process.env.TITLE;
 
 async function createNameSpace() {
   console.log("Creating namespace");
+  let namespace = {};
   try {
     let res = await axios.post(
       `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/storage/kv/namespaces`,
