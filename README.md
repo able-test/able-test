@@ -1,3 +1,5 @@
+##### For development, clone then `npm i -g ./` then use `able deploy` to deploy and `able destroy` to teardown
+
 ### NOTES
 
 Add a .env to the project root folder with your cloudflare credentials listed as:
