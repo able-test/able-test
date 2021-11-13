@@ -16,4 +16,10 @@ program
   .description("Teardown AB Test on Cloudflare")
   .action(() => require("../commands/destroy.js"));
 
+program
+  .command("u")
+  .alias("update")
+  .description("Update Remote Config on KV Namespace")
+  .action(() => require("../commands/update.js"));
+
 program.parse(process.argv);
