@@ -1,16 +1,20 @@
 {
   "name": "able",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Able AB Testing with Cloudflare",
   "main": "README.md",
   "bin": {
     "able": "bin/able.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JWhist/ABle"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jordan Whistler, Jenae Janzen, YuJohn Nattrass, Michael Rago",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.24.0",
     "commander": "^8.3.0",
