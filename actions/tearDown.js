@@ -13,7 +13,13 @@ const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
 // Remove KV store and worker
 async function teardown() {
   let namespace = fs.readFileSync("namespace.json", { encoding: "utf8" });
+
+  if (!namespace) {
+    console.log("No namespace found.");
+    return;
+  }
   const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
+
   console.log("Removing KV Namespace");
   let result = await axios.delete(
     `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/storage/kv/namespaces/${NAMESPACE_ID}`,
@@ -40,6 +46,8 @@ async function teardown() {
       },
     }
   );
+
+  fs.writeFileSync("namespace.json", "");
 
   if (!result.data.success) {
     throw new Error(
