@@ -2,7 +2,10 @@
   "name": "able",
   "version": "1.0.0",
   "description": "",
-  "main": "deploy.js",
+  "main": "",
+  "bin": {
+    "able": "bin/able.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
+    "commander": "^8.3.0",
     "dotenv": "^10.0.0",
     "form-data": "^4.0.0",
     "node-fetch": "^2.6.1"
