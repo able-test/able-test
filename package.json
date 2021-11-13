@@ -1,8 +1,8 @@
 {
   "name": "able",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "description": "Able AB Testing with Cloudflare",
+  "main": "README.md",
   "bin": {
     "able": "bin/able.js"
   },

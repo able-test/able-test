@@ -8,10 +8,12 @@ program
   .command("d")
   .alias("deploy")
   .description("Deploy AB Test on Cloudflare")
-  .action(() => require("../commands/deploy.js")());
+  .action(() => require("../commands/deploy.js"));
 
 program
   .command("e")
   .alias("destroy")
   .description("Teardown AB Test on Cloudflare")
-  .action(() => require("../commands/destroy.js")());
+  .action(() => require("../commands/destroy.js"));
+
+program.parse(process.argv);
