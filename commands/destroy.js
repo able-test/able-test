@@ -2,19 +2,19 @@ const removeKVNamespace = require("../actions/removeKVNamespace");
 const removeWorker = require("../actions/removeWorker");
 const log = require("../utils/log");
 const prompt = require("prompts");
+const loadingBar = require("../utils/loadingBar");
 
 const destroy = async () => {
   const destroy = loadingBar("\n*Dismantling A/B Test*\n");
   await removeKVNamespace();
   await removeWorker();
   clearInterval(destroy);
-  log("\nA/B test teardown complete.");
+  log("\nA/B test teardown complete.\n");
 };
 
 (async () => {
   log("\nBeginning destroy process!");
-  log("\nADD PROMPT HERE!"); // ADD A YES OR NO VERIFICATION HERE
-  async () => {
+  (async () => {
     const response = await prompt({
       type: "text",
       name: "value",
@@ -27,12 +27,12 @@ const destroy = async () => {
           ? true
           : "Please enter yes or no",
     });
-  };
 
-  if (response.value === "yes" || response.value === "y") {
-    await destroy();
-    return;
-  }
-
-  log("\nA/B teardown canceled.");
+    if (response.value === "yes" || response.value === "y") {
+      await destroy();
+      return;
+    } else {
+      log("\nA/B teardown canceled.\n");
+    }
+  })();
 })();
