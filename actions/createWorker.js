@@ -12,8 +12,8 @@ async function createWorker() {
   const API_KEY = process.env.API_KEY;
   const ACCOUNT_ID = process.env.ACCOUNT_ID;
   const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
-  let namespace = fs.readFileSync("namespace.json", { encoding: "utf8" });
-  const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
+  const NAMESPACE_ID = process.env.NAMESPACE_ID;
+
   log("\nCreating worker");
   const workerScript = fs.readFileSync(`${__dirname}/abworker.js`, "utf8");
   const metadata = {

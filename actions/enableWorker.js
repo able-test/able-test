@@ -10,6 +10,7 @@ async function enableWorker() {
   const API_KEY = process.env.API_KEY;
   const ACCOUNT_ID = process.env.ACCOUNT_ID;
   const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
+
   try {
     const result = await axios.post(
       `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/workers/scripts/${WORKER_SCRIPT_NAME}/subdomain`,

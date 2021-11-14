@@ -12,7 +12,9 @@ async function addWorkerToDomain() {
   const ZONE_ID = process.env.ZONE_ID;
   const DOMAIN_PATTERN = process.env.DOMAIN_PATTERN;
   const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
+
   log(`\nAssigning worker to ${DOMAIN_PATTERN}`);
+
   let body = {
     pattern: DOMAIN_PATTERN, // *.<usersDomainFromEnv/* will cover both www. and regular with additional paths at the end (all matches)
     script: WORKER_SCRIPT_NAME,

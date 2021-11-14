@@ -1,8 +1,7 @@
-const fs = require("fs");
 const axios = require("axios");
+const log = require("../utils/log");
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
-const log = require("../utils/log");
 
 // Remove KV store and worker
 async function teardown() {
@@ -10,13 +9,12 @@ async function teardown() {
   const API_KEY = process.env.API_KEY;
   const ACCOUNT_ID = process.env.ACCOUNT_ID;
   const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
-  let namespace = fs.readFileSync("namespace.json", { encoding: "utf8" });
+  const NAMESPACE_ID = process.env.NAMESPACE_ID;
 
-  if (!namespace) {
+  if (!NAMESPACE_ID) {
     log("\nNo namespace found.");
     return;
   }
-  const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
 
   log("Removing KV Namespace");
   let result = await axios.delete(
@@ -44,8 +42,6 @@ async function teardown() {
       },
     }
   );
-
-  fs.writeFileSync("namespace.json", "");
 
   if (!result.data.success) {
     throw new Error(
