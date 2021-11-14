@@ -6,7 +6,7 @@ const log = require("../utils/log");
 
 // This function takes the split ratio, script tags, and main/test branch urls and strores them in an edge KV store to be accessed by the edge worker at runtime.
 async function createRemoteConfig() {
-  log("\nCreating remote config\n");
+  log("\nCreating remote config");
   const EMAIL = process.env.EMAIL;
   const API_KEY = process.env.API_KEY;
   const ACCOUNT_ID = process.env.ACCOUNT_ID;
