@@ -1,6 +1,5 @@
 const axios = require("axios");
 const fs = require("fs");
-let config = require("../config.json"); // Values supplied from dashboard
 const FormData = require("form-data"); // Axios has errors with the Cloudflare API on this route
 const fetch = require("node-fetch"); // Must use older version, newer versions are incompatible, check package.json for version number
 const configDir = require("../utils/configDir");

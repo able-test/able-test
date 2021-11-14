@@ -5,6 +5,12 @@ const { program } = require("commander");
 program.version("0.0.1");
 
 program
+  .command("s")
+  .alias("setup")
+  .description("Setup Able Account Data")
+  .action(() => console.log("setup command coming soon!"));
+
+program
   .command("d")
   .alias("deploy")
   .description("Deploy AB Test on Cloudflare")
