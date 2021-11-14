@@ -8,7 +8,7 @@ program
   .command("s")
   .alias("setup")
   .description("Setup Able Account Data")
-  .action(() => console.log("setup command coming soon!"));
+  .action(() => require("../commands/setup.js"));
 
 program
   .command("d")
