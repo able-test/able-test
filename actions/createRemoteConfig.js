@@ -1,5 +1,5 @@
 const axios = require("axios");
-let config = require("../config.json"); // Values supplied from dashboard
+let config = require(`${process.cwd()}/config.json`); // Values supplied from dashboard
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
 const log = require("../utils/log");
