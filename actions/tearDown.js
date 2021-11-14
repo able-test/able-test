@@ -18,7 +18,7 @@ async function teardown() {
   }
   const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
 
-  log("\nRemoving KV Namespace");
+  log("Removing KV Namespace");
   let result = await axios.delete(
     `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/storage/kv/namespaces/${NAMESPACE_ID}`,
     {

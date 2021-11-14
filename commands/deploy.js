@@ -28,18 +28,18 @@ const configComplete = () => {
   log("\nSetup complete.\n");
 };
 
-const promptUser = async () => {
-  return await prompt(questions());
+const promptUser = async (apiKey, email, accountId, zoneId) => {
+  return await prompt(questions(apiKey, email, accountId, zoneId));
 };
 
 const questions = (
   apiKey,
   email,
   accountId,
+  zoneId,
   title,
   worker,
-  domainPattern,
-  zoneId
+  domainPattern
 ) => {
   return [
     {
@@ -62,27 +62,31 @@ const questions = (
     },
     {
       type: "text",
+      name: "ZONE_ID",
+      message: "Enter your zone Id",
+      initial: zoneId || "",
+    },
+    {
+      type: "text",
       name: "TITLE",
       message: "Enter a title for your remote config",
       initial: title || "",
+      validate: (value) =>
+        value !== value.toLowerCase() ? "Title must be lowercase only" : true,
     },
     {
       type: "text",
       name: "WORKER_SCRIPT_NAME",
       message: "Enter a name for your worker",
       initial: worker || "",
+      validate: (value) =>
+        value !== value.toLowerCase() ? "Name must be lowercase only" : true,
     },
     {
       type: "text",
       name: "DOMAIN_PATTERN",
       message: "Enter your domain matching pattern",
       initial: domainPattern || "",
-    },
-    {
-      type: "text",
-      name: "ZONE_ID",
-      message: "Enter your zone Id",
-      initial: zoneId || "",
     },
   ];
 };
@@ -104,14 +108,14 @@ const deploy = async () => {
   // check if users credentials are already available to preload into the prompts
   const apikey = process.env.API_KEY;
   const email = process.env.EMAIL;
+  const accountId = process.env.ACCOUNT_ID;
   const zoneId = process.env.ZONE_ID;
-
   configStart();
 
   // If users credentials are available, prepopulate the fields, otherwise start with blank ones
   const userInput =
-    apikey && email && zoneId
-      ? await promptUser(apikey, email, zoneId)
+    apikey && email && accountId
+      ? await promptUser(apikey, email, accountId, zoneId)
       : await promptUser();
 
   if (
@@ -128,5 +132,5 @@ const deploy = async () => {
     return;
   }
 
-  log("Canceled Able deploy.\n");
+  log("\nCanceled Able deploy.\n");
 })();
