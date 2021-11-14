@@ -5,10 +5,9 @@ const createNameSpace = require("../actions/createNameSpace.js");
 const createRemoteConfig = require("../actions/createRemoteConfig.js");
 const createWorker = require("../actions/createWorker");
 const enableWorker = require("../actions/enableWorker.js");
-const validateConfig = require("../utils/validateConfig.js");
+const log = require("../utils/log");
 const fs = require("fs");
 const prompt = require("prompts");
-const absolutePath = require("../utils/configDir");
 const loadingBar = require("../utils/loadingBar");
 const writeToEnv = require("../utils/writeToEnv");
 // const setupMessage = require('../../utils/setupMessage');  // TODO create file
@@ -16,17 +15,17 @@ const writeToEnv = require("../utils/writeToEnv");
 // Deploy the AB Test and worker in full
 
 const createHiddenAbleDir = () => {
-  if (!fs.existsSync(absolutePath)) {
-    fs.mkdirSync(absolutePath);
+  if (!fs.existsSync(configDir)) {
+    fs.mkdirSync(configDir);
   }
 };
 
 const configStart = () => {
-  console.log(`Configuring Able!\n`);
+  log(`\nConfiguring Able!\n`);
 };
 
 const configComplete = () => {
-  console.log("Setup complete.");
+  log("\nSetup complete.\n");
 };
 
 const promptUser = async () => {
@@ -89,7 +88,7 @@ const questions = (
 };
 
 const deploy = async () => {
-  const deploy = loadingBar("Deploying");
+  const deploy = loadingBar("\nDeploying");
   await createNameSpace();
   await createRemoteConfig();
   await createWorker();
@@ -102,10 +101,19 @@ const deploy = async () => {
 (async () => {
   createHiddenAbleDir();
 
+  // check if users credentials are already available to preload into the prompts
+  const apikey = process.env.API_KEY;
+  const email = process.env.EMAIL;
+  const zoneId = process.env.ZONE_ID;
+
   configStart();
 
-  const userInput = await promptUser();
-  console.log(userInput);
+  // If users credentials are available, prepopulate the fields, otherwise start with blank ones
+  const userInput =
+    apikey && email && zoneId
+      ? await promptUser(apikey, email, zoneId)
+      : await promptUser();
+
   if (
     userInput.API_KEY &&
     userInput.EMAIL &&
@@ -120,5 +128,5 @@ const deploy = async () => {
     return;
   }
 
-  console.log("Canceled Able deploy.");
+  log("Canceled Able deploy.\n");
 })();

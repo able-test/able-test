@@ -1,10 +1,11 @@
 const axios = require("axios");
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
+const log = require("../utils/log");
 
 // Activate the edge worker
 async function enableWorker() {
-  console.log("Enabling worker");
+  log("\nEnabling worker");
   const EMAIL = process.env.EMAIL;
   const API_KEY = process.env.API_KEY;
   const ACCOUNT_ID = process.env.ACCOUNT_ID;

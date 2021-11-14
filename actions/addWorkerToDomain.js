@@ -1,6 +1,7 @@
 const axios = require("axios");
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
+const log = require("../utils/log");
 
 // This function assigns the worker to run on hits from the custom domain associated with the cloudflare page
 // as well as the cloudflare page itself, by using route matching.  If there are multiple patterns this function
@@ -11,7 +12,7 @@ async function addWorkerToDomain() {
   const ZONE_ID = process.env.ZONE_ID;
   const DOMAIN_PATTERN = process.env.DOMAIN_PATTERN;
   const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
-  console.log(`Assigning worker to ${DOMAIN_PATTERN}`);
+  log(`\nAssigning worker to ${DOMAIN_PATTERN}`);
   let body = {
     pattern: DOMAIN_PATTERN, // *.<usersDomainFromEnv/* will cover both www. and regular with additional paths at the end (all matches)
     script: WORKER_SCRIPT_NAME,
