@@ -117,20 +117,36 @@ const deploy = async () => {
     apikey && email && accountId
       ? await promptUser(apikey, email, accountId, zoneId)
       : await promptUser();
+  (async () => {
+    const verify = await prompt({
+      type: "text",
+      name: "value",
+      message: "Are you sure?",
+      validate: (value) =>
+        value.toLowerCase() === "yes" ||
+        value.toLowerCase() === "no" ||
+        value.toLowerCase() === "y" ||
+        value.toLowerCase() === "n"
+          ? true
+          : "Please enter yes or no",
+    });
 
-  if (
-    userInput.API_KEY &&
-    userInput.EMAIL &&
-    userInput.ACCOUNT_ID &&
-    userInput.TITLE &&
-    userInput.WORKER_SCRIPT_NAME &&
-    userInput.DOMAIN_PATTERN &&
-    userInput.ZONE_ID
-  ) {
-    writeToEnv(userInput);
-    await deploy();
-    return;
-  }
-
-  log("\nCanceled Able deploy.\n");
+    if (verify.value === "yes" || verify.value === "y") {
+      if (
+        userInput.API_KEY &&
+        userInput.EMAIL &&
+        userInput.ACCOUNT_ID &&
+        userInput.TITLE &&
+        userInput.WORKER_SCRIPT_NAME &&
+        userInput.DOMAIN_PATTERN &&
+        userInput.ZONE_ID
+      ) {
+        writeToEnv(userInput);
+        await deploy();
+        return;
+      }
+    } else {
+      log("\nCanceled Able deploy.\n");
+    }
+  })();
 })();
