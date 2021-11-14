@@ -6,13 +6,12 @@ const fetch = require("node-fetch"); // Must use older version, newer versions a
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
 
-const EMAIL = process.env.EMAIL;
-const API_KEY = process.env.API_KEY;
-const ACCOUNT_ID = process.env.ACCOUNT_ID;
-const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
-
 // This function creates sends the edge worker script in file abworker.js and attaches it to the namespace given.
 async function createWorker() {
+  const EMAIL = process.env.EMAIL;
+  const API_KEY = process.env.API_KEY;
+  const ACCOUNT_ID = process.env.ACCOUNT_ID;
+  const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
   let namespace = fs.readFileSync("namespace.json", { encoding: "utf8" });
   const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
   console.log("Creating worker");
