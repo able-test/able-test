@@ -4,17 +4,17 @@ const FormData = require("form-data"); // Axios has errors with the Cloudflare A
 const fetch = require("node-fetch"); // Must use older version, newer versions are incompatible, check package.json for version number
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
-
-const EMAIL = process.env.EMAIL;
-const API_KEY = process.env.API_KEY;
-const ACCOUNT_ID = process.env.ACCOUNT_ID;
-const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
+const log = require("../utils/log");
 
 // This function creates sends the edge worker script in file abworker.js and attaches it to the namespace given.
 async function createWorker() {
+  const EMAIL = process.env.EMAIL;
+  const API_KEY = process.env.API_KEY;
+  const ACCOUNT_ID = process.env.ACCOUNT_ID;
+  const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
   let namespace = fs.readFileSync("namespace.json", { encoding: "utf8" });
   const NAMESPACE_ID = JSON.parse(namespace).namespace_id;
-  console.log("Creating worker");
+  log("\nCreating worker");
   const workerScript = fs.readFileSync(`${__dirname}/abworker.js`, "utf8");
   const metadata = {
     body_part: "script",

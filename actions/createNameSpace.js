@@ -2,14 +2,14 @@ const axios = require("axios");
 const fs = require("fs");
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
-
-const EMAIL = process.env.EMAIL;
-const API_KEY = process.env.API_KEY;
-const ACCOUNT_ID = process.env.ACCOUNT_ID;
-const TITLE = process.env.TITLE;
+const log = require("../utils/log");
 
 async function createNameSpace() {
-  console.log("Creating namespace");
+  log("\nCreating namespace");
+  const EMAIL = process.env.EMAIL;
+  const API_KEY = process.env.API_KEY;
+  const ACCOUNT_ID = process.env.ACCOUNT_ID;
+  const TITLE = process.env.TITLE;
   let namespace = {};
   try {
     let res = await axios.post(
