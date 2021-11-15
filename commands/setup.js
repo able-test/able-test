@@ -4,7 +4,7 @@ const log = require("../utils/log");
 const fs = require("fs");
 const prompt = require("prompts");
 const writeToEnv = require("../utils/writeToEnv");
-// const setupMessage = require('../../utils/setupMessage');  // TODO create file
+// const setupMessage = require('../utils/setupMessage');  // TODO create file
 
 const createHiddenAbleDir = () => {
   if (!fs.existsSync(configDir)) {
@@ -54,7 +54,7 @@ const questions = (apiKey, email, accountId, zoneId) => {
 };
 
 (async () => {
-  createHiddenAbleDir();
+  createHiddenAbleDir(); // ~/.Able
 
   // check if users credentials are already available to preload into the prompts
   const apikey = process.env.API_KEY;
@@ -68,6 +68,8 @@ const questions = (apiKey, email, accountId, zoneId) => {
     apikey && email && accountId && zoneId
       ? await promptUser(apikey, email, accountId, zoneId)
       : await promptUser();
+
+  // Verify inputs with a Y/N prompt
   (async () => {
     const verify = await prompt({
       type: "text",
@@ -92,6 +94,7 @@ const questions = (apiKey, email, accountId, zoneId) => {
         userInput.ACCOUNT_ID &&
         userInput.ZONE_ID
       ) {
+        // Append to the .env file itself as well as the process.env values
         writeToEnv(userInput);
         configComplete();
         return;

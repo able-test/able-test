@@ -40,7 +40,7 @@ const deployComplete = () => {
 };
 
 const deploy = async () => {
-  const deploy = loadingBar("\nDeploying");
+  const deploy = loadingBar("\nDeploying"); // Makes the little dots that continue on each line after the words
   await createNameSpace();
   await createRemoteConfig();
   await createWorker();
@@ -60,12 +60,14 @@ const deploy = async () => {
   const accountId = process.env.ACCOUNT_ID;
   const zoneId = process.env.ZONE_ID;
 
+  // If a user has not run the setup, bail out of the deploy process
   if (apiKey && email && accountId && zoneId) {
     userInput = await prompt(questions);
   } else {
     log("\nPlease run able setup before deployment.\n");
     return;
   }
+
   (async () => {
     const verify = await prompt({
       type: "text",
