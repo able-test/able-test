@@ -7,52 +7,118 @@ addEventListener("fetch", (event) => {
 });
 
 async function handleRequest(request) {
-  // Name of cookie
-  const name = "experiment-0";
-
-  // Fetch config file from Worker KV and assign to 'abConfig'
+  const cookieName = "able-test";
   const abConfig = await DATA_STORE.get("ab-config", { type: "json" });
   const host = request.headers.get("host");
-  const controlUrl = request.url.replace(host, abConfig.controlUrl);
-  const controlGA = abConfig.controlGA;
-  const testUrl = request.url.replace(host, abConfig.testUrl);
-  const testGA = abConfig.testGA;
   const cookie = request.headers.get("cookie");
+  const filter = abConfig.rule.filter;
+  const destinations = abConfig.rule.destinations;
+  const variants = abConfig.variants;
 
-  // If a 'experiment-0' cookie exist
-  let res;
-  let googleAnalytics;
-
-  if (cookie && cookie.includes(`${name}=control`)) {
-    res = await fetch(controlUrl, request);
-    googleAnalytics = controlGA;
-  } else if (cookie && cookie.includes(`${name}=test`)) {
-    res = await fetch(testUrl, request);
-    googleAnalytics = testGA;
+  if (cookie) {
+    const destination = destinations.find(({ variantName }) =>
+      cookie.includes(`${cookieName}=${variantName}`)
+    );
+    if (destination) {
+      const variant = variants.find(
+        (variant) => variant.name === destination.variantName
+      );
+      const newUrl = request.url.replace(host, variant.url);
+      let response = await fetch(newUrl, request);
+      response = injectScriptInHTML(variant.script, response);
+      return response;
+    }
   }
 
-  if (res) {
-    return new HTMLRewriter()
-      .on("head", new ElementHandler(googleAnalytics))
-      .transform(res);
+  if (!matchCriteria(request, filter)) {
+    return await fetch(request.url, request);
   }
 
-  // If a 'experiment-0' cookie does not exist
-  const group = Math.random() * 100 < abConfig.split ? "test" : "control";
+  const destination = randomDestination(destinations);
+  const variant = variants.find(
+    (variant) => variant.name === destination.variantName
+  );
+  const newUrl = request.url.replace(host, variant.url);
+  let response = await fetch(newUrl, request);
+  response = addCookie(response, cookieName, variant.name);
+  response = injectScriptInHTML(variant.script, response);
+  return response;
+}
 
-  if (group === "control") {
-    res = await fetch(controlUrl, request);
-    googleAnalytics = controlGA;
-  } else {
-    res = await fetch(testUrl, request);
-    googleAnalytics = testGA;
+function addCookie(response, cookieName, variantName) {
+  const newResponse = new Response(response.body, response);
+  newResponse.headers.append(
+    "Set-Cookie",
+    `${cookieName}=${variantName}; path=/`
+  );
+  return newResponse;
+}
+
+function randomDestination(destinations) {
+  const num = Math.random() * 100;
+  let total = 0;
+  let destination;
+  for (let index = 0; index < destinations.length; index += 1) {
+    destination = destinations[index];
+    total += destination.weight;
+    if (total >= num) {
+      break;
+    }
   }
+  return destination;
+}
 
-  const response = new Response(res.body, res);
-  response.headers.append("Set-Cookie", `${name}=${group}; path=/`);
+function injectScriptInHTML(script, response) {
   return new HTMLRewriter()
-    .on("head", new ElementHandler(googleAnalytics))
+    .on("head", new ElementHandler(script))
     .transform(response);
+}
+
+function matchCriteria(request, filter) {
+  const criteriaTypes = {
+    device: matchDeviceCriteria,
+    header: matchHeaderCriteria,
+    browser: matchBrowserCriteria,
+    cookie: matchCookieCriteria,
+  };
+
+  let isMatch = true;
+  for (const [key, value] of Object.entries(filter)) {
+    const match = criteriaTypes[key](request, value);
+    if (!match) {
+      isMatch = match;
+      break;
+    }
+  }
+
+  return isMatch;
+}
+
+function matchDeviceCriteria(request, value) {
+  const regex =
+    /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i;
+  const device = request.headers.get("User-Agent").match(regex)
+    ? "mobile"
+    : "desktop";
+  return value === device;
+}
+
+function matchBrowserCriteria(request, values) {
+  const regex = /(edg|opera|chrome|safari|firefox|msie|trident)/i;
+  const userBrowser = request.headers.get("User-Agent").match(regex)[0];
+  return values.some(
+    (browser) => browser.toLowerCase() === userBrowser.toLowerCase()
+  );
+}
+
+function matchHeaderCriteria(request, header) {
+  return request.headers.get(header.name) === header.value;
+}
+
+function matchCookieCriteria(request, value) {
+  const cookie = request.headers.get("cookie");
+  if (!cookie) return false;
+  return cookie.includes(value);
 }
 
 class ElementHandler {

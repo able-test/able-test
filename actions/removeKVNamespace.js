@@ -31,4 +31,5 @@ async function removeKVNamespace() {
     );
   }
 }
+
 module.exports = removeKVNamespace;
