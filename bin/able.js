@@ -30,6 +30,22 @@ program
   `);
 
 program
+  .command("c")
+  .alias("config")
+  .description("Creates a config.json file with A/B test configuration.")
+  .action(() => require("../commands/config.js"))
+  .addHelpText('after', `
+  
+  This walks you throught the configuration for your A/B tests.
+  If you don't already have a config.json file, this command will create one for you.
+  Otherwise, it will update your existing config.json. 
+
+  After following the prompts, run \`able deploy\` to deploy a new test or \`able update\`
+   to update your current configuration.
+
+  `)
+
+program
   .command("d")
   .alias("deploy")
   .description("Deploys your AB Test on Cloudflare")
