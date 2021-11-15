@@ -10,11 +10,18 @@ Data will be stored like this:
 const config = {
   "variants": [
     {
-      "name",
-      "url",
-      "script"
+      "name",      // string
+      "url",       // string
+      "script"     // string
     } 
-  ]
+  ],
+  "rule": {
+    "filter": {
+      "device"   // string (browser, mobile or "")
+      "browser:  // {}"
+    }
+
+  }
 
 
 
