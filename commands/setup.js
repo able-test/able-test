@@ -4,7 +4,7 @@ const log = require("../utils/log");
 const fs = require("fs");
 const prompt = require("prompts");
 const writeToEnv = require("../utils/writeToEnv");
-// const setupMessage = require('../utils/setupMessage');  // TODO create file
+const setupMessage = require('../utils/setupMessage.js');
 
 const createHiddenAbleDir = () => {
   if (!fs.existsSync(configDir)) {
@@ -61,7 +61,8 @@ const questions = (apiKey, email, accountId, zoneId) => {
   const email = process.env.EMAIL;
   const accountId = process.env.ACCOUNT_ID;
   const zoneId = process.env.ZONE_ID;
-  configStart();
+  setupMessage();
+  //configStart();
 
   // If users credentials are available, prepopulate the fields, otherwise start with blank ones
   const userInput =
