@@ -65,6 +65,8 @@ program
               "weight" determines what percentage of users see a given variant. 
               The total weights must add up to 100. A common split percentage is 50/50.
 
+  "note" is an optional field for any additional information you wish to include about your A/B test.
+
   After editing your config.json file, run \`able deploy\` to deploy a new test or \`able update\`
    to update your current configuration.
 
