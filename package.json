@@ -16,6 +16,7 @@
   "author": "Jordan Whistler, Jenae Janzen, YuJohn Nattrass, Michael Rago",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-ec2": "^3.41.0",
     "axios": "^0.24.0",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
