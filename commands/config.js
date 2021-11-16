@@ -1,66 +1,60 @@
-const prompt = require("prompts");
 const fs = require("fs");
 
-console.log(fs.existsSync('../config.json'))
+// console.log(fs.existsSync('./config.json'))
 
-/*
+// TODO: CHECK FILE PATH
+// For testing purposes, right now the file just goes in Able's root directory,
+// in production it'll need to go to the same place the .Able file does
 
-Data will be stored like this:
+// Users also need to know where to find the file or else it should automatically open
+// for them to edit (or both).
 
-const config = {
+const configSkel = `{
   "variants": [
     {
-      "name",      // string
-      "url",       // string
-      "script"     // string
-    } 
+      "name": "",    
+      "url": "",      
+      "script": ""     
+    }, 
+    {
+      "name": "",      
+      "url": "",       
+      "script": ""     
+    }
   ],
   "rule": {
     "filter": {
-      "device"   // string (browser, mobile or "")
-      "browser:  // {}"
-    }
-
+      "device": "", 
+      "browser": [],  
+      "header": {},
+      "cookie": ""
+    },
+    "destinations": [
+      {
+        "variantName": "",
+        "weight": ""
+      },
+      {
+        "variantName": "",
+        "weight": ""
+      }
+    ],
+    "note": ""
   }
+}`
 
+// NOTE: AS OF NOW, THIS COMMAND WILL OVERWRITE AN EXISTING CONFIG.JSON FILE WITH A BLANK SKELETON. 
+// NEED TO WARN USERS WHO ALREADY HAVE A CONFIG FILE SO THEY CAN CANCEL OR ELSE MODIFY TO CHECK FIRST 
 
-
-}
-
-
-
-// Check to see if config.json exists
-// If it doesn't, create it and add any fields the user designates
-// If it does, allow users to use the same values, clear value
-// or update value
-
-// 1. Add Variant
-//    a. Enter variant name
-//    b. Enter variant url
-//    c. Enter analytics script
-//    
-// addVariant(name, url, analytics)
-
-// By default, run twice and then ask if they want to add another
-
-
-*/
-
-
-const config = () => {
-
-}
-
-const openConfigFile = () => {
-  fs.writeFile('../config.json', config, (err, data) => {
+const createConfigFile = () => {
+  fs.writeFile('./config.json', configSkel, (err, data) => {
     if (!err) {
-      console.log("file successfully created")
+      console.log("Your config.json file is now ready! Please edit it to configure your A/B test before running \'able deploy\'.")
+      console.log("For more information about setting up your config.json file, run \'able config --help\'.")
+    } else {
+      console.log("Something went wrong. Config file not created, please try again.")
     }
-    console.log(fs.existsSync('../config.json'))
   })
 }
 
-
-openConfigFile();
-
-console.log(fs.existsSync('../config.json'))
+module.exports = createConfigFile();

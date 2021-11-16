@@ -36,12 +36,39 @@ program
   .action(() => require("../commands/config.js"))
   .addHelpText('after', `
   
-  This walks you throught the configuration for your A/B tests.
-  If you don't already have a config.json file, this command will create one for you.
-  Otherwise, it will update your existing config.json. 
+   This command provides you with a skeleton configuration for setting up your variants.
 
-  After following the prompts, run \`able deploy\` to deploy a new test or \`able update\`
+   \"variants\": At least two variants are required.
+                 Each variant must have a name, for example, "control" and "test".
+                 The URL is the URL each variant is deployed on.
+                 The script should contain the Umami snippet that you would like to associate with the variant.
+                    Note: Each variant should have a different Umami snippet.
+
+  The \"rule\" gives you granular control over your A/B tests.
+
+  \"filters\" are optional ways of controlling traffic to your A/B tests.
+              "device":   By default Able tests on both mobile and desktop devices. However, you can specify "mobile" or "desktop"
+                          to control which users are part of the A/B test.
+              "browser":  If you want to run your test only on certain browsers, specify the browsers you'd like to target.
+                          This should be an array of lowercase strings of browser names, for instance:
+                          ["chrome", "safari"]
+                          If the array is empty, the test will be performed across all browsers.
+              "header":   If you would like to split your test based on a specific header value, you can specify it
+                          by providing the name of the header and the requisite value, such as:
+                          {"name": "force-test", "value": "true"}
+              "cookie":   Tests can be performed only when a specific cookie is present. For example, this allows you to test only on 
+                          logged-in users. Provide the cookie key/value pair as follows:
+                          "force-test=true"
+
+  "destinations" are required for each of the variants in the test.
+              "variantName" should correspond to the names of the variants in the variants field.
+              "weight" determines what percentage of users see a given variant. 
+              The total weights must add up to 100. A common split percentage is 50/50.
+
+  After editing your config.json file, run \`able deploy\` to deploy a new test or \`able update\`
    to update your current configuration.
+
+  For more information or to see an example config.json file, please visit the docs at able.io/docs.
 
   `)
 
