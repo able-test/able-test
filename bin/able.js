@@ -81,7 +81,7 @@ program
   .description("Deploys your AB Test on Cloudflare")
   .action(() => require("../commands/deploy.js"))
   .addHelpText('after', `
-  To deploy your A/B test, first make sure you have your config.json file set up correctly.
+  To deploy your A/B test, first make sure you have your ableConfig.json file set up correctly.
   When you run \`able deploy\`, you'll be given a series of prompts.
 
   \'Enter a title for your remote config\'
@@ -113,8 +113,8 @@ program
   .action(() => require("../commands/update.js"))
   .addHelpText("after", `
   
-  This will use your config.json file to update your running A/B tests.
-  Before running \`update\`, please ensure you've updated your config.json file with the desired changes.
+  This will use your ableConfig.json file to update your running A/B tests.
+  Before running \`update\`, please ensure you've updated your ableConfig.json file with the desired changes.
 
 
   `)

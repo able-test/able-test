@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-// console.log(fs.existsSync('./config.json'))
+// console.log(fs.existsSync('./ableConfig.json'))
 
 // TODO: CHECK FILE PATH
 // For testing purposes, right now the file just goes in Able's root directory,
@@ -43,7 +43,7 @@ const configSkel = `{
   }
 }`
 
-// NOTE: AS OF NOW, THIS COMMAND WILL OVERWRITE AN EXISTING CONFIG.JSON FILE WITH A BLANK SKELETON. 
+// NOTE: AS OF NOW, THIS COMMAND WILL OVERWRITE AN EXISTING ABLECONFIG.JSON FILE WITH A BLANK SKELETON. 
 // NEED TO WARN USERS WHO ALREADY HAVE A CONFIG FILE SO THEY CAN CANCEL OR ELSE MODIFY TO CHECK FIRST 
 
 const createConfigFile = () => {
@@ -52,7 +52,7 @@ const createConfigFile = () => {
       console.log("")
       console.log("Your ablConfig.json file is now ready! You'll find it in your current working directory")
       console.log("---> Please edit it to configure your A/B test before running \'able deploy\'. <--")
-      console.log("For more information about setting up your config.json file, run \'able config --help\'.")
+      console.log("For more information about setting up your ableConfig.json file, run \'able config --help\'.")
       console.log("")
     } else {
       console.log("Something went wrong. Config file not created, please try again.")
