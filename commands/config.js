@@ -47,10 +47,13 @@ const configSkel = `{
 // NEED TO WARN USERS WHO ALREADY HAVE A CONFIG FILE SO THEY CAN CANCEL OR ELSE MODIFY TO CHECK FIRST 
 
 const createConfigFile = () => {
-  fs.writeFile('./config.json', configSkel, (err, data) => {
+  fs.writeFile(`${process.cwd()}/ableConfig.json`, configSkel, (err, data) => {
     if (!err) {
-      console.log("Your config.json file is now ready! Please edit it to configure your A/B test before running \'able deploy\'.")
+      console.log("")
+      console.log("Your ablConfig.json file is now ready! You'll find it in your current working directory")
+      console.log("---> Please edit it to configure your A/B test before running \'able deploy\'. <--")
       console.log("For more information about setting up your config.json file, run \'able config --help\'.")
+      console.log("")
     } else {
       console.log("Something went wrong. Config file not created, please try again.")
     }
