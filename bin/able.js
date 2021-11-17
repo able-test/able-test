@@ -32,11 +32,12 @@ program
 program
   .command("c")
   .alias("config")
-  .description("Creates a config.json file with A/B test configuration.")
+  .description("Creates an ableConfig.json file with A/B test configuration.")
   .action(() => require("../commands/config.js"))
   .addHelpText('after', `
   
-   This command provides you with a skeleton configuration for setting up your variants.
+This command provides you with a skeleton configuration for setting up your variants.
+You'll find the file you need labled 'ableConfig.json' in your current working directory.
 
    \"variants\": At least two variants are required.
                  Each variant must have a name, for example, "control" and "test".
@@ -61,16 +62,16 @@ program
                           "force-test=true"
 
   "destinations" are required for each of the variants in the test.
-              "variantName" should correspond to the names of the variants in the variants field.
-              "weight" determines what percentage of users see a given variant. 
-              The total weights must add up to 100. A common split percentage is 50/50.
+              "variantName": should correspond to the names of the variants in the variants field.
+              "weight":      determines what percentage of users see a given variant. 
+              ** The total weights must add up to 100. A common split percentage is 50/50. **
 
   "note" is an optional field for any additional information you wish to include about your A/B test.
 
-  After editing your config.json file, run \`able deploy\` to deploy a new test or \`able update\`
+  After editing your ableConfig.json file, run \`able deploy\` to deploy a new test or \`able update\`
    to update your current configuration.
 
-  For more information or to see an example config.json file, please visit the docs at able.io/docs.
+  For more information or to see an example ableConfig.json file, please visit the docs at able.io/docs.
 
   `)
 
