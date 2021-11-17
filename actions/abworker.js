@@ -13,7 +13,18 @@ async function handleRequest(request) {
   const cookie = request.headers.get("cookie");
   const filter = abConfig.rule.filter;
   const destinations = abConfig.rule.destinations;
-  const variants = abConfig.variants;
+  let variants = abConfig.variants;
+
+  // strip leading http:// or https:// from urls if present
+  variants = variants.map((variant) => {
+    if (variant.url.startsWith("http://")) {
+      variant.url = variant.url.slice(7);
+      return variant;
+    } else if (variant.url.startsWith("https://")) {
+      variant.url = variant.url.slice(8);
+      return variant;
+    } else return variant;
+  });
 
   if (cookie) {
     const destination = destinations.find(({ variantName }) =>
