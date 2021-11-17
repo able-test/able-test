@@ -43,7 +43,7 @@ const createConfigFile = () => {
   fs.writeFile(`${process.cwd()}/ableConfig.json`, configSkel, (err, data) => {
     if (!err) {
       console.log("")
-      console.log("Your ablConfig.json file is now ready! You'll find it in your current working directory")
+      console.log("Your ableConfig.json file is now ready! You'll find it in your current working directory.")
       console.log("---> Please edit it to configure your A/B test before running \'able deploy\'. <--")
       console.log("For more information about setting up your ableConfig.json file, run \'able config --help\'.")
       console.log("")
