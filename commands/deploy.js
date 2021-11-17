@@ -2,13 +2,30 @@ const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
 const addWorkerToDomain = require("../actions/addWorkerToDomain.js");
 const createNameSpace = require("../actions/createNameSpace.js");
-const createRemoteConfig = require("../actions/createRemoteConfig.js");
+// const createRemoteConfig = require("../actions/createRemoteConfig.js");
 const createWorker = require("../actions/createWorker");
 const enableWorker = require("../actions/enableWorker.js");
 const log = require("../utils/log");
 const prompt = require("prompts");
 const loadingBar = require("../utils/loadingBar");
 const writeToEnv = require("../utils/writeToEnv");
+const fs = require("fs");
+const validConfig = require("../utils/validateConfig");
+let createRemoteConfig;
+
+const ableConfigExists = () => {
+  return fs.existsSync(`${process.cwd()}/ableConfig.json`)
+}
+
+const loadAbleConfig = () => {
+  createRemoteConfig = require("../actions/createRemoteConfig.js")
+}
+
+const missingAbleConfigMessage = () => {
+  log("\n`ableConfig.json` not found. Please run `able config` to create file.")
+  log("\nBefore deploying your Able test, edit your `ableConfig` to configure your tests.")
+  log("\nFor more information about test configuration, run `able config --help`.\n")
+}
 
 const questions = [
   {
@@ -52,21 +69,34 @@ const deploy = async () => {
 
 (async () => {
   let userInput;
-  log("\nBeginning deploy process!");
 
-  // check if users credentials are already available to preload into the prompts
-  const apiKey = process.env.API_KEY;
-  const email = process.env.EMAIL;
-  const accountId = process.env.ACCOUNT_ID;
-  const zoneId = process.env.ZONE_ID;
-
-  // If a user has not run the setup, bail out of the deploy process
-  if (apiKey && email && accountId && zoneId) {
-    userInput = await prompt(questions);
-  } else {
+  if (!ableConfigExists()) {
+    missingAbleConfigMessage();
+    return 
+  } else if (!validConfig()){
     log("\nPlease run able setup before deployment.\n");
     return;
+  } else {
+    log("\nBeginning deploy process!");
+    userInput = await prompt(questions);
   }
+
+  // log("\nBeginning deploy process!");
+
+  // check if users credentials are already available to preload into the prompts
+  // const apiKey = process.env.API_KEY;
+  // const email = process.env.EMAIL;
+  // const accountId = process.env.ACCOUNT_ID;
+  // const zoneId = process.env.ZONE_ID;
+
+  // // If a user has not run the setup, bail out of the deploy process
+  // if (apiKey && email && accountId && zoneId) {
+  //   userInput = await prompt(questions);
+  // } else {
+  //   log("\nPlease run able setup before deployment.\n");
+  //   return;
+  // }
+
 
   (async () => {
     const verify = await prompt({

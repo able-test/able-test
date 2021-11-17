@@ -2,13 +2,6 @@ const fs = require("fs");
 
 // console.log(fs.existsSync('./ableConfig.json'))
 
-// TODO: CHECK FILE PATH
-// For testing purposes, right now the file just goes in Able's root directory,
-// in production it'll need to go to the same place the .Able file does
-
-// Users also need to know where to find the file or else it should automatically open
-// for them to edit (or both).
-
 const configSkel = `{
   "variants": [
     {
@@ -55,7 +48,7 @@ const createConfigFile = () => {
       console.log("For more information about setting up your ableConfig.json file, run \'able config --help\'.")
       console.log("")
     } else {
-      console.log("Something went wrong. Config file not created, please try again.")
+      console.log("Something went wrong. ableConfig file not created, please try again.")
     }
   })
 }
