@@ -1,0 +1,28 @@
+{
+  "variants": [
+    {
+      "name": "control",
+      "url": "teststaticpage.pages.dev",
+      "script": "<!-- control Global site tag (gtag.js) - Google Analytics --><script async src=\"https://www.googletagmanager.com/gtag/js?id=G-HLFZY8MZCW\"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-HLFZY8MZCW');</script>"
+    },
+    {
+      "name": "test",
+      "url": "test.teststaticpage.pages.dev",
+      "script": "<!-- test Global site tag (gtag.js) - Google Analytics --><script async src=\"https://www.googletagmanager.com/gtag/js?id=G-LTZ13SVKRM\"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-LTZ13SVKRM'); </script>"
+    }
+  ],
+  "rule": {
+    "filter": {},
+    "destinations": [
+      {
+        "variantName": "control",
+        "weight": 50
+      },
+      {
+        "variantName": "test",
+        "weight": 50
+      }
+    ],
+    "note": "A sample note"
+  }
+}
