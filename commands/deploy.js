@@ -74,6 +74,8 @@ const deploy = async () => {
     return 
   } else if (!validConfig()){
     log("\nPlease run able setup before deployment.\n");
+    log("\nIf you've already done this step, your credentials may be wrong.\n");
+    log("\nVerify your email, API key, account ID and zone ID are correct before proceeding.\n");
     return;
   } else {
     loadAbleConfig()

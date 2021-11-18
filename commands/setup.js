@@ -75,7 +75,7 @@ const questions = (apiKey, email, accountId, zoneId) => {
     const verify = await prompt({
       type: "text",
       name: "value",
-      message: "Are you sure?",
+      message: "Are your credentials correct?",
       validate: (value) =>
         value.toLowerCase() === "yes" ||
         value.toLowerCase() === "no" ||
@@ -102,6 +102,7 @@ const questions = (apiKey, email, accountId, zoneId) => {
       }
     } else {
       log("\nCanceled Able setup.\n");
+      log("Re-run Able setup to add your credentials before deploying.\n")
     }
   })();
 })();
