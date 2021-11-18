@@ -12,6 +12,16 @@ const instanceParams = {
   KeyName: "horse", //KEY_PAIR_NAME
   MinCount: 1,
   MaxCount: 1,
+  BlockDeviceMapping: [
+    {
+      DeviceName: "/dev/sdf",
+      Ebs: {
+        DeleteOnTermination: false,
+        VolumeSize: 16,
+        Encrypted: false,
+      },
+    },
+  ],
 };
 
 const run = async () => {
