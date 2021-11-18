@@ -1,7 +1,5 @@
 const fs = require("fs");
 
-// console.log(fs.existsSync('./ableConfig.json'))
-
 const configSkel = `{
   "variants": [
     {
