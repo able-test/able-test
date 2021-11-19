@@ -4,11 +4,15 @@ const {
 } = require("@aws-sdk/client-secrets-manager");
 const { Client } = require("pg");
 const fs = require("fs");
-const SCHEMA_SQL = fs.readFileSync("../utils/schema.sql").toString();
+const path = require("path");
+const SCHEMA_SQL = fs.readFileSync(
+  path.resolve(__dirname, "../utils/schema.sql"),
+  { encoding: "utf8" }
+);
 
 async function getDatabaseCredentials() {
   try {
-    const client = new SecretsManagerClient("us-east-1");
+    const client = new SecretsManagerClient({ region: "us-east-1" });
     const command = new GetSecretValueCommand({
       SecretId: "umamiDB-credentials",
     });
@@ -33,13 +37,14 @@ function createDbConnectionString({ dbname, port, username, password, host }) {
 (async () => {
   const credentials = await getDatabaseCredentials();
   const connectionString = createDbConnectionString(credentials);
+  console.log(connectionString);
   const client = new Client({ connectionString });
   client.connect();
   client.query(SCHEMA_SQL, (err, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log("rds success");
+      console.log("RDS Success");
     }
     client.end();
   });

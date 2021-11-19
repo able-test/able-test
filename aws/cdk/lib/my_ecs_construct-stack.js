@@ -7,6 +7,8 @@ const secretsManager = require("@aws-cdk/aws-secretsmanager");
 const cf = require("@aws-cdk/aws-cloudfront");
 const cm = require("@aws-cdk/aws-certificatemanager");
 // const ssm = require('@aws-cdk/aws-ssm');
+const configDir = require("../../../utils/configDir.js");
+require("dotenv").config({ path: `${configDir}/.env` });
 
 class MyEcsConstructStack extends cdk.Stack {
   /**
@@ -20,7 +22,7 @@ class MyEcsConstructStack extends cdk.Stack {
     const cert = cm.Certificate.fromCertificateArn(
       this,
       "UmamiAbleCert",
-      "INSERT ARN"
+      process.env.CERTIFICATE_ARN
     ); // TODO: MAKE DYNAMIC (CERTIFICATE ARN)
 
     const vpc = new ec2.Vpc(this, "AbleUmamiVpc", {
