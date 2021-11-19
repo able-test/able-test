@@ -19,10 +19,10 @@ For the KV store which will hold the config data for the AB test, you will need 
 
 ##### For current testing purposes run `node destroy.js` to teardown the KV store and worker.
 
-1. Create Certificate
+1. `able setup`
+2. Create Certificate
 2. `cdk bootstrap aws://acctId/region && cdk synth && cdk deploy`
 3. Attach LB
 4. Insert Tables
-5. `able setup`
 6. `able config` (after getting script tags from Umami dash)
 7. `able deploy`
