@@ -18,6 +18,18 @@ from main folder, run `cdk bootsrap aws://${AWS_ACCOUNT_NUMBER}/'us-east-1` (thi
 
 `able setup` - this function should get cloudflare credentials and domain name and set up the Umami server if desired.
 
+SETUP - 0. Menu - get credentials
+IF Umami {
+
+1. createCertificate.js
+2. cdk synth
+3. cdk deploy
+4. attachLoadbalancerToDomain.js
+5. insertTablesInDB.js
+   }
+
+log "run able to config to set up your tests etc..."
+
 When setup is complete, go to your Umami site, log in using username `admin` and password `umami` and set
 your control and variant names. Take note of the script tags, as these will be copied in to the ableConfig.json
 file.
