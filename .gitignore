@@ -1,4 +1,5 @@
 .env
 node_modules
-namespace.json
 ableConfig.json
+**/.cdk.staging
+**/cdk.out
