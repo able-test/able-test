@@ -45,8 +45,8 @@ const questions = [
   },
   {
     type: "text",
-    name: "DOMAIN_PATTERN",
-    message: "Enter your domain matching pattern",
+    name: "DOMAIN",
+    message: "Enter your domain name",
     initial: "",
   },
 ];
@@ -57,13 +57,17 @@ const deployComplete = () => {
 
 const deploy = async () => {
   const deploy = loadingBar("\nDeploying"); // Makes the little dots that continue on each line after the words
-  await createNameSpace();
-  await createRemoteConfig();
-  await createWorker();
-  await enableWorker();
-  await addWorkerToDomain();
+  try {
+    await createNameSpace();
+    await createRemoteConfig();
+    await createWorker();
+    await enableWorker();
+    await addWorkerToDomain();
+    deployComplete();
+  } catch {
+    console.log("\nSomething went wrong.")
+  }
   clearInterval(deploy);
-  deployComplete();
 };
 
 (async () => {
@@ -105,7 +109,7 @@ const deploy = async () => {
       if (
         userInput.TITLE &&
         userInput.WORKER_SCRIPT_NAME &&
-        userInput.DOMAIN_PATTERN
+        userInput.DOMAIN
       ) {
         writeToEnv(userInput);
         await deploy();
