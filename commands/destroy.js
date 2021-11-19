@@ -1,5 +1,5 @@
-const removeKVNamespace = require("../actions/removeKVNamespace");
-const removeWorker = require("../actions/removeWorker");
+const removeKVNamespace = require("../cloudflare/removeKVNamespace");
+const removeWorker = require("../cloudflare/removeWorker");
 const log = require("../utils/log");
 const prompt = require("prompts");
 const loadingBar = require("../utils/loadingBar");

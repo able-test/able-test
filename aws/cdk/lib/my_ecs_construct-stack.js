@@ -7,6 +7,7 @@ const secretsManager = require("@aws-cdk/aws-secretsmanager");
 const cm = require("@aws-cdk/aws-certificatemanager");
 // const ssm = require('@aws-cdk/aws-ssm');
 const configDir = require("../../../utils/configDir.js");
+const { PostgresEngineVersion } = require("@aws-cdk/aws-rds");
 require("dotenv").config({ path: `${configDir}/.env` });
 
 class MyEcsConstructStack extends cdk.Stack {
@@ -49,7 +50,9 @@ class MyEcsConstructStack extends cdk.Stack {
     );
 
     const postgres = new rds.DatabaseInstance(this, "UmamiPostgres", {
-      engine: rds.DatabaseInstanceEngine.POSTGRES,
+      engine: rds.DatabaseInstanceEngine.postgres({
+        version: PostgresEngineVersion.VER_13,
+      }),
       instanceClass: ec2.InstanceType.of(
         ec2.InstanceClass.BURSTABLE2,
         ec2.InstanceSize.SMALL
