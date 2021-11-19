@@ -12,7 +12,7 @@ async function requestCertificate() {
   const client = new acm.ACMClient({ region: "us-east-1" });
   const DOMAIN = process.env.DOMAIN;
   const input = {
-    DomainName: `ableUmami.${DOMAIN}.com`, // TODO: MAKE DYNAMIC
+    DomainName: `ableUmami.${DOMAIN}`, // TODO: MAKE DYNAMIC
     ValidationMethod: "DNS",
   };
   const command = new acm.RequestCertificateCommand(input);
@@ -36,7 +36,6 @@ async function getCNAME(certificateArn) {
     const response = await client.send(command);
     const { Name: name, Value: value } =
       response.Certificate.DomainValidationOptions[0].ResourceRecord;
-    console.log("response", name, value);
     return { name, value };
   } catch (e) {
     console.log(e);
@@ -68,11 +67,32 @@ async function createDNSRecord({ name, value }) {
   );
 }
 
+async function waitUntilCertificateValidated(certificateArn) {
+  try {
+    const secondsPerMinute = 60;
+    const maxMinutes = 20;
+    const maxWaitTime = maxMinutes * secondsPerMinute;
+    const client = new acm.ACMClient({ region: 'us-east-1'});
+    const waiterConfig = { client, maxWaitTime };
+    const certificateDetails = { CertificateArn: certificateArn };
+
+    console.log('Waiting for certificate to be validated');
+    await acm.waitUntilCertificateValidated(waiterConfig, certificateDetails);
+  } catch(err) {
+    if (err.name === 'TimeoutError') {
+      console.log('Validating Certificate timed out please try again later');
+    } else {
+      console.log(e);
+    }
+  }
+}
+
 (async function () {
   const certificateArn = await requestCertificate();
   await wait(30);
   const certificateDetails = await getCNAME(certificateArn);
   await createDNSRecord(certificateDetails);
   writeToEnv({ CERTIFICATE_ARN: certificateArn });
+  waitUntilCertificateValidated(certificateArn);
   console.log("Success");
 })();
