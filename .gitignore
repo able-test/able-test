@@ -3,3 +3,4 @@ node_modules
 ableConfig.json
 **/.cdk.staging
 **/cdk.out
+**/cdk.context.json
