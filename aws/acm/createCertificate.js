@@ -10,8 +10,9 @@ async function wait(timeInSeconds) {
 
 async function requestCertificate() {
   const client = new acm.ACMClient({ region: "us-east-1" });
+  const DOMAIN = process.env.DOMAIN;
   const input = {
-    DomainName: "ableUmami.shannonwhistler.com", // TODO: MAKE DYNAMIC
+    DomainName: `ableUmami.${DOMAIN}.com`, // TODO: MAKE DYNAMIC
     ValidationMethod: "DNS",
   };
   const command = new acm.RequestCertificateCommand(input);
