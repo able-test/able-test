@@ -4,11 +4,13 @@ Who is this for?
 
 Someone who is hosting a JAMStack application on Cloudflare and wants to run a split test
 
-####PREREQUISITES
+#### PREREQUISITES
+
 AWS account and credentials configured on local machine, aws-cdk installed globally (if using Umami)
 npm installed
 
-####TO USE
+#### TO USE
+
 clone the repo
 
 `npm install`
@@ -24,7 +26,7 @@ run `able config` to generate a split test configuration file. Fill in the field
 
 run `able deploy` to deploy the split test to Cloudflare.
 
-####TO TEARDOWN
+#### TO TEARDOWN
 
 `able destroy` to remove split test from Cloudflare
 
