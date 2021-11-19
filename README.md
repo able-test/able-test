@@ -1,28 +1,31 @@
-##### For development, clone then `npm i -g ./` then use `able deploy` to deploy and `able destroy` to teardown
+### ABLE A/B TESTING FOR CLOUDFLARE APPLICATIONS WITH UMAMI ANALYTICS DASHBOARD
 
-### NOTES
+Who is this for?
 
-Add a .env to the project root folder with your cloudflare credentials listed as:
+Someone who is hosting a JAMStack application on Cloudflare and wants to run a split test
 
-- EMAIL
-- API_KEY (This is the global key, not the CA key)
-- ACCOUNT_ID (Associated with the project)
+####PREREQUISITES
+AWS account and credentials configured on local machine, aws-cdk installed globally (if using Umami)
+npm installed
 
-For the KV store which will hold the config data for the AB test, you will need a:
+####TO USE
+clone the repo
 
-- TITLE
-- WORKER_SCRIPT_NAME
-- DOMAIN_PATTERN - which subdomains you want the split to run on (put \*.mydomain.com/\_ for all)
-- ZONE_ID
+`npm install`
+from main folder, run `cdk bootsrap aws://${AWS_ACCOUNT_NUMBER}/'us-east-1` (this must use us-east-1 region)
 
-##### For current testing purposes run `node deploy.js`. Currently working on part 2 of the deploy process.
+`able setup` - this function should get cloudflare credentials and domain name and set up the Umami server if desired.
 
-##### For current testing purposes run `node destroy.js` to teardown the KV store and worker.
+When setup is complete, go to your Umami site, log in using username `admin` and password `umami` and set
+your control and variant names. Take note of the script tags, as these will be copied in to the ableConfig.json
+file.
 
-1. `able setup`
-2. Create Certificate
-2. `cdk bootstrap aws://acctId/region && cdk synth && cdk deploy`
-3. Attach LB
-4. Insert Tables
-6. `able config` (after getting script tags from Umami dash)
-7. `able deploy`
+run `able config` to generate a split test configuration file. Fill in the fields with the appropriate values.
+
+run `able deploy` to deploy the split test to Cloudflare.
+
+####TO TEARDOWN
+
+`able destroy` to remove split test from Cloudflare
+
+`cdk destroy` to remove Umami server
