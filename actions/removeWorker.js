@@ -9,6 +9,11 @@ async function removeWorker() {
   const ACCOUNT_ID = process.env.ACCOUNT_ID;
   const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
 
+  if (!WORKER_SCRIPT_NAME) {
+    log("\nNo Worker Deployed.");
+    return;
+  }
+
   log("\nRemoving edge worker");
   result = await axios.delete(
     `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/workers/scripts/${WORKER_SCRIPT_NAME}`,
