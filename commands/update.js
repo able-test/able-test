@@ -9,7 +9,7 @@ const ableConfigExists = () => {
 };
 
 const loadAbleConfig = () => {
-  createRemoteConfig = require("../cloudflare/createRemoteConfig.js.js");
+  createRemoteConfig = require("../cloudflare/createRemoteConfig");
 };
 
 const missingAbleConfigMessage = () => {

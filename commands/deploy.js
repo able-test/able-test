@@ -1,9 +1,9 @@
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
-const addWorkerToDomain = require("../cloudflare/addWorkerToDomain.js.js");
-const createNameSpace = require("../cloudflare/createNameSpace.js");
+const addWorkerToDomain = require("../cloudflare/addWorkerToDomain");
+const createNameSpace = require("../cloudflare/createNameSpace");
 const createWorker = require("../cloudflare/createWorker");
-const enableWorker = require("../cloudflare/enableWorker.js.js");
+const enableWorker = require("../cloudflare/enableWorker");
 const log = require("../utils/log");
 const prompt = require("prompts");
 const loadingBar = require("../utils/loadingBar");
@@ -17,7 +17,7 @@ const ableConfigExists = () => {
 };
 
 const loadAbleConfig = () => {
-  createRemoteConfig = require("../cloudflare/createRemoteConfig.js.js");
+  createRemoteConfig = require("../cloudflare/createRemoteConfig");
 };
 
 const missingAbleConfigMessage = () => {
