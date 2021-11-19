@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const { SystemControl } = require("@aws-sdk/client-ecs");
 const { program } = require("commander");
 
 program.version("0.0.1");
@@ -7,9 +8,13 @@ program.version("0.0.1");
 program
   .command("s")
   .alias("setup")
-  .description("Configures Able using your Cloudflare email, API key, account ID, and zone ID ")
+  .description(
+    "Configures Able using your Cloudflare email, API key, account ID, and zone ID "
+  )
   .action(() => require("../commands/setup.js"))
-  .addHelpText('after', `
+  .addHelpText(
+    "after",
+    `
   
   This is the first step to set up your A/B test using Able. 
   You'll need the following credentials in order to successfully link your Cloudflare account:
@@ -27,14 +32,17 @@ program
   Zone ID:
     -> This ID should be right above your Account ID, in the account overview.
   
-  `);
+  `
+  );
 
 program
   .command("c")
   .alias("config")
   .description("Creates an ableConfig.json file with A/B test configuration.")
   .action(() => require("../commands/config.js"))
-  .addHelpText('after', `
+  .addHelpText(
+    "after",
+    `
   
 This command provides you with a skeleton configuration for setting up your variants.
 You'll find the file you need labled 'ableConfig.json' in your current working directory.
@@ -73,14 +81,17 @@ You'll find the file you need labled 'ableConfig.json' in your current working d
 
   For more information or to see an example ableConfig.json file, please visit the docs at able.io/docs.
 
-  `)
+  `
+  );
 
 program
   .command("d")
   .alias("deploy")
   .description("Deploys your AB Test on Cloudflare")
   .action(() => require("../commands/deploy.js"))
-  .addHelpText('after', `
+  .addHelpText(
+    "after",
+    `
   To deploy your A/B test, first make sure you have your ableConfig.json file set up correctly.
   When you run \`able deploy\`, you'll be given a series of prompts.
 
@@ -92,31 +103,38 @@ program
       -> Names must be lowercase, not empty and unique to your Cloudflare account.
   \'Enter your domain matching pattern\`
       -> This is the route matching pattern that will allow your worker to run on your custom domain.
-  `)
+  `
+  );
 
 program
   .command("e")
   .alias("destroy")
   .description("Teardown AB Test on Cloudflare")
   .action(() => require("../commands/destroy.js"))
-  .addHelpText("after", `
+  .addHelpText(
+    "after",
+    `
     
   This will remove your KV namespace and worker script from Cloudflare.
   This action cannot be undone!
 
-  `);
+  `
+  );
 
 program
   .command("u")
   .alias("update")
   .description("Update Remote Config on KV Namespace")
   .action(() => require("../commands/update.js"))
-  .addHelpText("after", `
+  .addHelpText(
+    "after",
+    `
   
   This will use your ableConfig.json file to update your running A/B tests.
   Before running \`update\`, please ensure you've updated your ableConfig.json file with the desired changes.
 
 
-  `)
+  `
+  );
 
 program.parse(process.argv);
