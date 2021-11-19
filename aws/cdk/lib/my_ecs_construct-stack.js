@@ -4,7 +4,6 @@ const ecs = require("@aws-cdk/aws-ecs");
 const ecs_patterns = require("@aws-cdk/aws-ecs-patterns");
 const rds = require("@aws-cdk/aws-rds");
 const secretsManager = require("@aws-cdk/aws-secretsmanager");
-const cf = require("@aws-cdk/aws-cloudfront");
 const cm = require("@aws-cdk/aws-certificatemanager");
 // const ssm = require('@aws-cdk/aws-ssm');
 const configDir = require("../../../utils/configDir.js");
