@@ -3,6 +3,8 @@ const {
   DescribeLoadBalancersCommand,
 } = require("@aws-sdk/client-elastic-load-balancing-v2");
 const axios = require("axios");
+const configDir = require("../../utils/configDir.js");
+require("dotenv").config({ path: `${configDir}/.env` });
 
 async function getLoadBalancerDNSName() {
   try {
@@ -20,6 +22,10 @@ async function getLoadBalancerDNSName() {
 }
 
 async function createLoadBalancerDNSRecord(dnsName) {
+  const EMAIL = process.env.EMAIL;
+  const API_KEY = process.env.API_KEY;
+  const ZONE_ID = process.env.ZONE_ID;
+
   const body = {
     type: "CNAME",
     name: "ableumami",
@@ -29,12 +35,12 @@ async function createLoadBalancerDNSRecord(dnsName) {
   console.log("Create record in Cloudflare");
   try {
     await axios.post(
-      "https://api.cloudflare.com/client/v4/zones/ZONE-ID/dns_records", // TODO: MAKE DYNAMIC
+      `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`, // TODO: MAKE DYNAMIC
       JSON.stringify(body),
       {
         headers: {
-          "X-Auth-Email": "EMAIL", // TODO: MAKE DYNAMIC
-          "X-Auth-Key": "API KEY", // TODO: MAKE DYNAMIC
+          "X-Auth-Email": EMAIL, // TODO: MAKE DYNAMIC
+          "X-Auth-Key": API_KEY, // TODO: MAKE DYNAMIC
           "Content-Type": "application/json",
         },
       }

@@ -1,5 +1,8 @@
 const acm = require("@aws-sdk/client-acm");
 const axios = require("axios");
+const writeToEnv = require("../../utils/writeToEnv.js");
+const configDir = require("../../utils/configDir.js");
+require("dotenv").config({ path: `${configDir}/.env` });
 
 async function wait(timeInSeconds) {
   await new Promise((resolve) => setTimeout(resolve, timeInSeconds * 1000));
@@ -8,7 +11,7 @@ async function wait(timeInSeconds) {
 async function requestCertificate() {
   const client = new acm.ACMClient({ region: "us-east-1" });
   const input = {
-    DomainName: "ableUmami.yujohnnattrass.dev", // TODO: MAKE DYNAMIC
+    DomainName: "ableUmami.shannonwhistler.com", // TODO: MAKE DYNAMIC
     ValidationMethod: "DNS",
   };
   const command = new acm.RequestCertificateCommand(input);
@@ -40,6 +43,10 @@ async function getCNAME(certificateArn) {
 }
 
 async function createDNSRecord({ name, value }) {
+  const EMAIL = process.env.EMAIL;
+  const API_KEY = process.env.API_KEY;
+  const ZONE_ID = process.env.ZONE_ID;
+
   const body = {
     type: "CNAME",
     name,
@@ -48,12 +55,12 @@ async function createDNSRecord({ name, value }) {
   };
   console.log("Create DNS entry in Cloudflare");
   await axios.post(
-    "https://api.cloudflare.com/client/v4/zones/ZONEID/dns_records", // TODO: MAKE DYNAMIC
+    `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`, // TODO: MAKE DYNAMIC
     JSON.stringify(body),
     {
       headers: {
-        "X-Auth-Email": "EMAIL", // TODO: MAKE DYNAMIC
-        "X-Auth-Key": "API KEY", // TODO: MAKE DYNAMIC
+        "X-Auth-Email": EMAIL, // TODO: MAKE DYNAMIC
+        "X-Auth-Key": API_KEY, // TODO: MAKE DYNAMIC
         "Content-Type": "application/json",
       },
     }
@@ -65,5 +72,6 @@ async function createDNSRecord({ name, value }) {
   await wait(30);
   const certificateDetails = await getCNAME(certificateArn);
   await createDNSRecord(certificateDetails);
+  writeToEnv({ CERTIFICATE_ARN: certificateArn });
   console.log("Success");
 })();
