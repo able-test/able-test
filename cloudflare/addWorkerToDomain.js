@@ -10,13 +10,13 @@ async function addWorkerToDomain() {
   const EMAIL = process.env.EMAIL;
   const API_KEY = process.env.API_KEY;
   const ZONE_ID = process.env.ZONE_ID;
-  const DOMAIN = process.env.DOMAIN;
+  const DOMAIN_PATTERN = process.env.DOMAIN_PATTERN;
   const WORKER_SCRIPT_NAME = process.env.WORKER_SCRIPT_NAME;
 
-  log(`\nAssigning worker to ${DOMAIN}`);
+  log(`\nAssigning worker to ${DOMAIN_PATTERN}`);
 
   let body = {
-    pattern: `*${DOMAIN}/*`, // *.<usersDomainFromEnv/* will cover both www. and regular with additional paths at the end (all matches)
+    pattern: DOMAIN_PATTERN, // *.<usersDomainFromEnv/* will cover both www. and regular with additional paths at the end (all matches)
     script: WORKER_SCRIPT_NAME,
   };
 

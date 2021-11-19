@@ -91,7 +91,7 @@ async function waitUntilCertificateValidated(certificateArn) {
   }
 }
 
-(async function () {
+async function createCertificate() {
   const certificateArn = await requestCertificate();
   await wait(30);
   const certificateDetails = await getCNAME(certificateArn);
@@ -99,4 +99,6 @@ async function waitUntilCertificateValidated(certificateArn) {
   writeToEnv({ CERTIFICATE_ARN: certificateArn });
   await waitUntilCertificateValidated(certificateArn);
   console.log("Success");
-})();
+}
+
+module.exports = createCertificate;

@@ -51,7 +51,9 @@ async function createLoadBalancerDNSRecord(dnsName) {
   }
 }
 
-(async function () {
+async function attachLoadBalancer() {
   const dnsName = await getLoadBalancerDNSName();
   await createLoadBalancerDNSRecord(dnsName);
-})();
+}
+
+module.exports = attachLoadBalancer;

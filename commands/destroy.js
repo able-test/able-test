@@ -17,6 +17,7 @@ const destroy = async () => {
     API_KEY: process.env.API_KEY,
     ACCOUNT_ID: process.env.ACCOUNT_ID,
     ZONE_ID: process.env.ZONE_ID,
+    DOMAIN: process.env.DOMAIN,
   };
 
   await removeKVNamespace();
