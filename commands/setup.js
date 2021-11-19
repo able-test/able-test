@@ -4,16 +4,12 @@ const log = require("../utils/log");
 const fs = require("fs");
 const prompt = require("prompts");
 const writeToEnv = require("../utils/writeToEnv");
-const setupMessage = require('../utils/setupMessage.js');
+const setupMessage = require("../utils/setupMessage.js");
 
 const createHiddenAbleDir = () => {
   if (!fs.existsSync(configDir)) {
     fs.mkdirSync(configDir);
   }
-};
-
-const configStart = () => {
-  log(`\nConfiguring Able!\n`);
 };
 
 const configComplete = () => {
@@ -62,7 +58,6 @@ const questions = (apiKey, email, accountId, zoneId) => {
   const accountId = process.env.ACCOUNT_ID;
   const zoneId = process.env.ZONE_ID;
   setupMessage();
-  //configStart();
 
   // If users credentials are available, prepopulate the fields, otherwise start with blank ones
   const userInput =
@@ -102,7 +97,7 @@ const questions = (apiKey, email, accountId, zoneId) => {
       }
     } else {
       log("\nCanceled Able setup.\n");
-      log("Re-run Able setup to add your credentials before deploying.\n")
+      log("Re-run Able setup to add your credentials before deploying.\n");
     }
   })();
 })();
