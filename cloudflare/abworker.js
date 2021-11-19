@@ -106,6 +106,7 @@ function matchCriteria(request, filter) {
 }
 
 function matchDeviceCriteria(request, value) {
+  if (value === "") return true;
   const regex =
     /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i;
   const device = request.headers.get("User-Agent").match(regex)
@@ -115,6 +116,7 @@ function matchDeviceCriteria(request, value) {
 }
 
 function matchBrowserCriteria(request, values) {
+  if (values.length === 0) return true;
   const regex = /(edg|opera|chrome|safari|firefox|msie|trident)/i;
   const userBrowser = request.headers.get("User-Agent").match(regex)[0];
   return values.some(
@@ -123,10 +125,11 @@ function matchBrowserCriteria(request, values) {
 }
 
 function matchHeaderCriteria(request, header) {
-  return request.headers.get(header.name) === header.value;
+  return Object.keys(header).length === 0 || request.headers.get(header.name) === header.value;
 }
 
 function matchCookieCriteria(request, value) {
+  if (!value) return true
   const cookie = request.headers.get("cookie");
   if (!cookie) return false;
   return cookie.includes(value);
