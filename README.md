@@ -11,7 +11,7 @@ npm installed
 
 #### TO USE
 
-clone the repo
+`git clone https://github.com/JWhist/ABle`
 
 `npm install`
 from main folder, run `cdk bootsrap aws://${AWS_ACCOUNT_NUMBER}/'us-east-1` (this must use us-east-1 region)
