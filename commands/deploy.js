@@ -13,18 +13,24 @@ const validConfig = require("../utils/validateConfig");
 let createRemoteConfig;
 
 const ableConfigExists = () => {
-  return fs.existsSync(`${process.cwd()}/ableConfig.json`)
-}
+  return fs.existsSync(`${process.cwd()}/ableConfig.json`);
+};
 
 const loadAbleConfig = () => {
-  createRemoteConfig = require("../actions/createRemoteConfig.js")
-}
+  createRemoteConfig = require("../actions/createRemoteConfig.js");
+};
 
 const missingAbleConfigMessage = () => {
-  log("\n`ableConfig.json` not found. Please run `able config` to create file.")
-  log("\nBefore deploying your Able test, edit your `ableConfig` to configure your tests.")
-  log("\nFor more information about test configuration, run `able config --help`.\n")
-}
+  log(
+    "\n`ableConfig.json` not found. Please run `able config` to create file."
+  );
+  log(
+    "\nBefore deploying your Able test, edit your `ableConfig` to configure your tests."
+  );
+  log(
+    "\nFor more information about test configuration, run `able config --help`.\n"
+  );
+};
 
 const questions = [
   {
@@ -75,18 +81,19 @@ const deploy = async () => {
 
   if (!ableConfigExists()) {
     missingAbleConfigMessage();
-    return 
-  } else if (!validConfig()){
+    return;
+  } else if (!validConfig()) {
     log("\nPlease run able setup before deployment.\n");
     log("\nIf you've already done this step, your credentials may be wrong.\n");
-    log("\nVerify your email, API key, account ID and zone ID are correct before proceeding.\n");
+    log(
+      "\nVerify your email, API key, account ID and zone ID are correct before proceeding.\n"
+    );
     return;
   } else {
-    loadAbleConfig()
+    loadAbleConfig();
     log("\nBeginning deploy process!");
     userInput = await prompt(questions);
   }
-
 
   (async () => {
     const verify = await prompt({
@@ -111,6 +118,9 @@ const deploy = async () => {
         userInput.WORKER_SCRIPT_NAME &&
         userInput.DOMAIN
       ) {
+        userInput = Object.fromEntries(
+          Object.entries(userInput).map((entry) => [entry[0], entry[1].trim()])
+        );
         writeToEnv(userInput);
         await deploy();
         return;

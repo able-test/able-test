@@ -5,9 +5,8 @@ require("dotenv").config({ path: `${configDir}/.env` });
 const validateConfig = () => {
   return (
     !!process.env.ACCOUNT_ID &&
-    !!process.env.TITLE &&
-    !!process.env.WORKER_SCRIPT_NAME &&
-    !!process.env.DOMAIN_PATTERN &&
+    !!process.env.API_KEY &&
+    !!process.env.EMAIL &&
     !!process.env.ZONE_ID
   );
 };
