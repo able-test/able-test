@@ -97,7 +97,7 @@ const questions = (apiKey, email, accountId, zoneId) => {
       }
     } else {
       log("\nCanceled Able setup.\n");
-      log("Re-run Able setup to add your credentials before deploying.\n");
+      log("Re-run `able setup` to add your credentials before deploying.\n");
     }
   })();
 })();
