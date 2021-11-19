@@ -31,6 +31,7 @@ const update = async () => {
       missingAbleConfigMessage();
       return;
     } else {
+      loadAbleConfig();
       log("\nBeginning remote updating process!");
       const response = await prompt({
         type: "text",
