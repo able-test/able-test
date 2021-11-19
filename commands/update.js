@@ -5,18 +5,24 @@ const fs = require("fs");
 let createRemoteConfig;
 
 const ableConfigExists = () => {
-  return fs.existsSync(`${process.cwd()}/ableConfig.json`)
-}
+  return fs.existsSync(`${process.cwd()}/ableConfig.json`);
+};
 
 const loadAbleConfig = () => {
-  createRemoteConfig = require("../actions/createRemoteConfig.js")
-}
+  createRemoteConfig = require("../cloudflare/createRemoteConfig.js.js");
+};
 
 const missingAbleConfigMessage = () => {
-  log("\n`ableConfig.json` not found. Please run `able config` to create file.")
-  log("\nBefore deploying your Able test, edit your `ableConfig` to configure your tests.")
-  log("\nFor more information about test configuration, run `able config --help`.\n")
-}
+  log(
+    "\n`ableConfig.json` not found. Please run `able config` to create file."
+  );
+  log(
+    "\nBefore deploying your Able test, edit your `ableConfig` to configure your tests."
+  );
+  log(
+    "\nFor more information about test configuration, run `able config --help`.\n"
+  );
+};
 
 const update = async () => {
   const update = loadingBar("\n*Updating remote test configuration*\n");

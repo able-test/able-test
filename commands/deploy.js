@@ -1,9 +1,9 @@
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
-const addWorkerToDomain = require("../actions/addWorkerToDomain.js");
-const createNameSpace = require("../actions/createNameSpace.js");
-const createWorker = require("../actions/createWorker");
-const enableWorker = require("../actions/enableWorker.js");
+const addWorkerToDomain = require("../cloudflare/addWorkerToDomain.js.js");
+const createNameSpace = require("../cloudflare/createNameSpace.js");
+const createWorker = require("../cloudflare/createWorker");
+const enableWorker = require("../cloudflare/enableWorker.js.js");
 const log = require("../utils/log");
 const prompt = require("prompts");
 const loadingBar = require("../utils/loadingBar");
@@ -17,7 +17,7 @@ const ableConfigExists = () => {
 };
 
 const loadAbleConfig = () => {
-  createRemoteConfig = require("../actions/createRemoteConfig.js");
+  createRemoteConfig = require("../cloudflare/createRemoteConfig.js.js");
 };
 
 const missingAbleConfigMessage = () => {
@@ -51,8 +51,8 @@ const questions = [
   },
   {
     type: "text",
-    name: "DOMAIN",
-    message: "Enter your domain name",
+    name: "DOMAIN_PATTERN",
+    message: "Enter your domain matching pattern",
     initial: "",
   },
 ];
@@ -63,17 +63,13 @@ const deployComplete = () => {
 
 const deploy = async () => {
   const deploy = loadingBar("\nDeploying"); // Makes the little dots that continue on each line after the words
-  try {
-    await createNameSpace();
-    await createRemoteConfig();
-    await createWorker();
-    await enableWorker();
-    await addWorkerToDomain();
-    deployComplete();
-  } catch {
-    console.log("\nSomething went wrong.")
-  }
+  await createNameSpace();
+  await createRemoteConfig();
+  await createWorker();
+  await enableWorker();
+  await addWorkerToDomain();
   clearInterval(deploy);
+  deployComplete();
 };
 
 (async () => {
@@ -116,7 +112,7 @@ const deploy = async () => {
       if (
         userInput.TITLE &&
         userInput.WORKER_SCRIPT_NAME &&
-        userInput.DOMAIN
+        userInput.DOMAIN_PATTERN
       ) {
         userInput = Object.fromEntries(
           Object.entries(userInput).map((entry) => [entry[0], entry[1].trim()])
