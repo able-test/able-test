@@ -71,12 +71,14 @@ async function waitUntilCertificateValidated(certificateArn) {
   try {
     const secondsPerMinute = 60;
     const maxMinutes = 20;
+    const minDelay = 15;
+    const maxDelay = 30;
     const maxWaitTime = maxMinutes * secondsPerMinute;
     const client = new acm.ACMClient({ region: 'us-east-1'});
-    const waiterConfig = { client, maxWaitTime };
+    const waiterConfig = { client, maxWaitTime, minDelay, maxDelay };
     const certificateDetails = { CertificateArn: certificateArn };
 
-    console.log('Waiting for certificate to be validated');
+    console.log('Waiting for certificate to be validated. Please wait a few minutes');
     await acm.waitUntilCertificateValidated(waiterConfig, certificateDetails);
   } catch(err) {
     if (err.name === 'TimeoutError') {
