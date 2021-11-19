@@ -13,14 +13,25 @@ const createHiddenAbleDir = () => {
 };
 
 const configComplete = () => {
-  log("\nSetup complete.\n");
+  log(
+    "\nSetup complete.  Run able config to generate a template configuration file.\n"
+  );
 };
 
-const promptUser = async (apiKey, email, accountId, zoneId) => {
-  return await prompt(questions(apiKey, email, accountId, zoneId));
+const promptUser = async (
+  apiKey,
+  email,
+  accountId,
+  zoneId,
+  domain,
+  deployUmami
+) => {
+  return await prompt(
+    questions(apiKey, email, accountId, zoneId, domain, deployUmami)
+  );
 };
 
-const questions = (apiKey, email, accountId, zoneId) => {
+const questions = (apiKey, email, accountId, zoneId, domain, deployUmami) => {
   return [
     {
       type: "text",
@@ -45,6 +56,18 @@ const questions = (apiKey, email, accountId, zoneId) => {
       name: "ZONE_ID",
       message: "Enter your zone Id",
       initial: zoneId || "",
+    },
+    {
+      type: "text",
+      name: "DOMAIN",
+      message: "Enter your domain name",
+      initial: "",
+    },
+    {
+      type: "confirm",
+      name: "DEPLOY_UMAMI",
+      message: "Would you like an Umami dashboard",
+      initial: true,
     },
   ];
 };
@@ -88,10 +111,15 @@ const questions = (apiKey, email, accountId, zoneId) => {
         userInput.API_KEY &&
         userInput.EMAIL &&
         userInput.ACCOUNT_ID &&
-        userInput.ZONE_ID
+        userInput.ZONE_ID &&
+        userInput.DOMAIN //  && DOMAIN
       ) {
         // Append to the .env file itself as well as the process.env values
         writeToEnv(userInput);
+        //  If userInput.DEPLOY_UMAMI === true { deployUmami() }
+        if (userInput.DEPLOY_UMAMI) {
+          console.log("deploying Umami..."); // Insert new function here to deploy AWS Site
+        }
         configComplete();
         return;
       }
