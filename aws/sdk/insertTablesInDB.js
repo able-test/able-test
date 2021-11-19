@@ -34,7 +34,7 @@ function createDbConnectionString({ dbname, port, username, password, host }) {
   return `postgres://${username}:${password}@${host}:${port}/${dbname}`;
 }
 
-(async () => {
+async function insertTables() {
   const credentials = await getDatabaseCredentials();
   const connectionString = createDbConnectionString(credentials);
   console.log(connectionString);
@@ -48,4 +48,6 @@ function createDbConnectionString({ dbname, port, username, password, host }) {
     }
     client.end();
   });
-})();
+}
+
+module.exports = insertTables;

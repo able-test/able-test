@@ -3,12 +3,12 @@
     {
       "name": "control",
       "url": "teststaticpage.pages.dev",
-      "script": "<!-- control Global site tag (gtag.js) - Google Analytics --><script async src=\"https://www.googletagmanager.com/gtag/js?id=G-HLFZY8MZCW\"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-HLFZY8MZCW');</script>"
+      "script": "<script async defer data-website-id='9090ad23-491c-43f7-8b2d-bfa3e3e82fe9' src='https://ableumami.shannonwhistler.com/umami.js'></script>"
     },
     {
       "name": "test",
       "url": "test.teststaticpage.pages.dev",
-      "script": "<!-- test Global site tag (gtag.js) - Google Analytics --><script async src=\"https://www.googletagmanager.com/gtag/js?id=G-LTZ13SVKRM\"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-LTZ13SVKRM'); </script>"
+      "script": "<script async defer data-website-id='efa57813-e634-49e8-84de-d4f24984d943' src='https://ableumami.shannonwhistler.com/umami.js'></script>"
     }
   ],
   "rule": {

@@ -5,7 +5,6 @@ const ecs_patterns = require("@aws-cdk/aws-ecs-patterns");
 const rds = require("@aws-cdk/aws-rds");
 const secretsManager = require("@aws-cdk/aws-secretsmanager");
 const cm = require("@aws-cdk/aws-certificatemanager");
-// const ssm = require('@aws-cdk/aws-ssm');
 const configDir = require("../../../utils/configDir.js");
 const { PostgresEngineVersion } = require("@aws-cdk/aws-rds");
 require("dotenv").config({ path: `${configDir}/.env` });
@@ -23,7 +22,7 @@ class MyEcsConstructStack extends cdk.Stack {
       this,
       "UmamiAbleCert",
       process.env.CERTIFICATE_ARN
-    ); // TODO: MAKE DYNAMIC (CERTIFICATE ARN)
+    );
 
     const vpc = new ec2.Vpc(this, "AbleUmamiVpc", {
       maxAzs: 3, // Default is all AZs in region
