@@ -2,7 +2,9 @@
 
 Who is this for?
 
-Someone who is hosting a JAMStack application on Cloudflare and wants to run a split test
+Someone who is hosting a JAMStack application on Cloudflare and wants to run a split test. We offer the option to use your own analytics service like Google Analytics, or we
+can deploy an Umami Webserver to AWS infrastructure for you which will use ECS and RDS under your custom domain name with the url `ableumami.yoursite.whatever`, and
+in about 30-40 minutes you will have a fully operational split test with a beautiful and informative dashboard for your own custom events!
 
 #### PREREQUISITES
 
