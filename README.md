@@ -24,7 +24,9 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 
 2. `npm install`
 
-3. (ONLY IF USING UMAMI DASHBOARD) From main folder, run `cdk bootsrap aws://${AWS_ACCOUNT_NUMBER}/'us-east-1` (this must use us-east-1 region)
+3. IF USING UMAMI DASHBOARD:
+
+   - From main folder, run `cdk bootsrap aws://${AWS_ACCOUNT_NUMBER}/'us-east-1` (this must use us-east-1 region)
 
 4. `able setup` - Setup of Umami server infrastructure takes approximately 20-25 minutes.
 
