@@ -8,13 +8,15 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 
 #### PREREQUISITES
 
-- IF USING UMAMI DASHBOARD - AWS account and credentials configured on local machine, aws-cdk installed globally
+- IF USING UMAMI DASHBOARD:
+  - AWS account and credentials configured on local machine
+  - aws-cdk installed globally
 - `npm` installed
 - Have handy your
-  1.  Cloudflare EMAIL
-  2.  Cloudflare GLOBAL API_KEY
-  3.  Cloudflare ACCOUNT_ID
-  4.  Cloudflare ZONE_ID for the site you will be testing against
+  - Cloudflare EMAIL
+  - Cloudflare GLOBAL API_KEY
+  - Cloudflare ACCOUNT_ID
+  - Cloudflare ZONE_ID for the site you will be testing against
 
 #### TO USE
 
