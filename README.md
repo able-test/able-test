@@ -13,9 +13,12 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
   - aws-cdk installed globally
 - `npm` installed
 - Have handy your
+
   - Cloudflare `EMAIL`
   - Cloudflare `GLOBAL API_KEY`
+
     ![Screenshot of API key location!](./assets/gapi.jpg "Global API KEY location on Cloudflare")
+
   - Cloudflare `ACCOUNT_ID`
   - Cloudflare `ZONE_ID` for the site you will be testing against
   - Have your Cloudflare Pages set to **deploy all branches** to preview branches (the default)
