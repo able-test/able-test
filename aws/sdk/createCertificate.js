@@ -54,7 +54,7 @@ async function createDNSRecord({ name, value }) {
     ttl: 1,
   };
   console.log("Create DNS entry in Cloudflare");
-  await axios.post(
+  const response = await axios.post(
     `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`, // TODO: MAKE DYNAMIC
     JSON.stringify(body),
     {
@@ -65,6 +65,8 @@ async function createDNSRecord({ name, value }) {
       },
     }
   );
+
+  writeToEnv({ DNS_ID: response.data.result.id });
 }
 
 async function waitUntilCertificateValidated(certificateArn) {
