@@ -1,7 +1,6 @@
 const { ACMClient,
   DeleteCertificateCommand,
   ListCertificatesCommand } = require("@aws-sdk/client-acm");
-const axios = require("axios");
 const configDir = require("../../utils/configDir.js");
 require("dotenv").config({ path: `${configDir}/.env` });
 
