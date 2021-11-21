@@ -31,7 +31,7 @@ async function removeCertificate() {
     const command = new DeleteCertificateCommand(input)
     const response = await client.send(command);
 
-    if (response['$metadata'].httpStatusCode) {
+    if (response['$metadata'].httpStatusCode === 200) {
       console.log('Certificate successfully removed');
     }
   } catch(err) {
