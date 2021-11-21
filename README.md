@@ -21,6 +21,9 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 
   - Cloudflare `ACCOUNT_ID`
   - Cloudflare `ZONE_ID` for the site you will be testing against
+
+  - ![Screenshot of Account ID area!](./assets/ids.jpg "Location of Account IDS on Cloudflare")
+
   - Have your Cloudflare Pages set to **deploy all branches** to preview branches (the default)
 
 #### TO USE
