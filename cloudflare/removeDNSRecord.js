@@ -7,16 +7,18 @@ async function removeDNSRecord(recordId) {
     const EMAIL = process.env.EMAIL;
     const API_KEY = process.env.API_KEY;
     const ZONE_ID = process.env.ZONE_ID;
-    const url = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${recordId}`
+    const DNS_ID = process.env.DNS_ID;
+
+    const url = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${DNS_ID}`;
     const headers = {
       "X-Auth-Email": EMAIL,
       "X-Auth-Key": API_KEY,
       "Content-Type": "application/json",
-    }
+    };
 
-    await axios.delete(url, { headers })
-  } catch(err) {
-    console.log(err)
+    await axios.delete(url, { headers });
+  } catch (err) {
+    console.log(err);
   }
 }
 

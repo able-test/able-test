@@ -120,6 +120,21 @@ program
 
   `
   );
+program
+  .command("t")
+  .alias("teardown")
+  .description("Teardown Umami Application from AWS")
+  .action(() => require("../commands/destroyUmami.js"))
+  .addHelpText(
+    "after",
+    `
+    
+  This will remove your Umami infrastructure from AWS & remove your DNS CNAME records from Cloudflare.
+  Your current split tests will still continue to run on Cloudflare edge workers!
+  This action cannot be undone!
+
+  `
+  );
 
 program
   .command("u")
