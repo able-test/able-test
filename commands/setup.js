@@ -5,6 +5,7 @@ const fs = require("fs");
 const prompt = require("prompts");
 const writeToEnv = require("../utils/writeToEnv");
 const setupMessage = require("../utils/setupMessage.js");
+const launchUmami = require("./launchUmami");
 
 const createHiddenAbleDir = () => {
   if (!fs.existsSync(configDir)) {
@@ -116,9 +117,9 @@ const questions = (apiKey, email, accountId, zoneId, domain, deployUmami) => {
       ) {
         // Append to the .env file itself as well as the process.env values
         writeToEnv(userInput);
-        //  If userInput.DEPLOY_UMAMI === true { deployUmami() }
         if (userInput.DEPLOY_UMAMI) {
           console.log("deploying Umami..."); // Insert new function here to deploy AWS Site
+          await launchUmami();
         }
         configComplete();
         return;
