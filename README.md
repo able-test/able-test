@@ -17,27 +17,26 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
   - Cloudflare GLOBAL API_KEY
   - Cloudflare ACCOUNT_ID
   - Cloudflare ZONE_ID for the site you will be testing against
+  - Have your Cloudflare Pages set to deploy all branches to preview branches (the default)
 
 #### TO USE
 
-1. `git clone https://github.com/JWhist/ABle`
+1. `npm install -g able`
 
-2. `npm install`
+2. IF USING UMAMI DASHBOARD:
 
-3. IF USING UMAMI DASHBOARD:
+   - Run `cdk bootsrap aws://${AWS_ACCOUNT_NUMBER}/'us-east-1'` (this must use us-east-1 region)
 
-   - From main folder, run `cdk bootsrap aws://${AWS_ACCOUNT_NUMBER}/'us-east-1'` (this must use us-east-1 region)
+3. `able setup` - Setup of Umami server infrastructure (if selected) takes approximately 20-25 minutes.
 
-4. `able setup` - Setup of Umami server infrastructure takes approximately 20-25 minutes.
-
-5. `able config` - This will generate a file called ableConfig.json that you will fill in with your split test configurations.
-   If you are using the Umami Dashboard, log in using `admin` and `umami` and set up your destinations there under settings, add website and copy the script tags into the
+4. `able config` - This will generate a file called ableConfig.json that you will fill in with your split test configurations.
+   If you are using the Umami Dashboard, log in using `admin` and `umami` and set up your destinations there under `settings->add website` and copy the script tags into the
    appropriate variants in the ableConfig.json file. Be careful to nest your single quotes inside your double quotes and not vice-versa ;)
 
-6. Create and push your test branches to github and Cloudflare where they will be deployed to preview branches. Enter these URLS, which are going to match the branch name
+5. Create and push your test branches to github and Cloudflare where they will be deployed to preview branches. Enter these URLS, which are going to match the branch name
    along with the Cloudflare pages site name; ie, test.mysite.pages.dev, into the ableConfig.json file.
 
-7. `able deploy` to deploy the split test to Cloudflare. This will take approximately 5-10 seconds.
+6. `able deploy` to deploy the split test to Cloudflare. This will take approximately 5-10 seconds.
 
 #### TO UPDATE
 
@@ -50,3 +49,13 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 1. `able destroy` to remove split test from Cloudflare.
 
 2. `cdk destroy` to teardown Umami server. This process takes approximately 25-30 minutes.
+
+#### TO RUN NEW TESTS
+
+1. Push new code with tests to your repo & Cloudflare pages site
+
+2. Edit your Umami dashboard with new control and variant names and copy the scipt tags
+
+3. Update the `variants` section of the `ableConfig.json` file with the new control and test variant paths and scripts
+
+4. Run the `able update` command
