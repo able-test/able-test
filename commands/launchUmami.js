@@ -1,17 +1,28 @@
-const { execSync } = require("child_process");
+const { spawnSync } = require("child_process");
 
 const createCertificate = require("../aws/sdk/createCertificate");
 const attachLoadBalancer = require("../aws/sdk/attachLoadbalancerToDomain");
 const insertTables = require("../aws/sdk/insertTablesInDB");
-const log = require("../utils/log");
 
-(async () => {
+async function getPrefix() {
+  return spawnSync("npm", ["config", "get", "prefix"]);
+}
+
+async function launchUmami() {
   try {
     await createCertificate();
 
-    execSync(
-      "cdk synth",
-      { stdio: "inherit" },
+    const basePath = (await getPrefix()).stdout
+      .toString()
+      .replace(/\r\n\t\v/g, "");
+
+    spawnSync(
+      "cdk",
+      ["synth"],
+      {
+        stdio: "inherit",
+        cwd: basePath + "/lib/node_modules/able",
+      },
       function (error, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
@@ -21,9 +32,10 @@ const log = require("../utils/log");
       }
     );
 
-    execSync(
-      "cdk deploy ",
-      { stdio: "inherit" },
+    spawnSync(
+      "cdk",
+      ["deploy"],
+      { stdio: "inherit", cwd: basePath + "/lib/node_modules/able" },
       function (error, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
@@ -36,6 +48,8 @@ const log = require("../utils/log");
     attachLoadBalancer();
     insertTables();
   } catch (err) {
-    log(err);
+    console.error(err);
   }
-})();
+}
+
+module.exports = launchUmami;
