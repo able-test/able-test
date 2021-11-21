@@ -15,11 +15,11 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 - Have handy your
 
   - Cloudflare `EMAIL`
-  - Cloudflare `GLOBAL API_KEY`
+  - Cloudflare `GLOBAL API_KEY` - Found under `Profile->API Tokens`
 
     ![Screenshot of API key location!](./assets/gapi.jpg "Global API KEY location on Cloudflare")
 
-  - Cloudflare `ACCOUNT_ID`
+  - Cloudflare `ACCOUNT_ID` - Click on your application and these are found on the lower right sidebar
   - Cloudflare `ZONE_ID` for the site you will be testing against
 
   - ![Screenshot of Account ID area!](./assets/ids.jpg "Location of Account IDS on Cloudflare")
