@@ -10,7 +10,7 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 
 - IF USING UMAMI DASHBOARD:
   - AWS account and credentials configured on local machine
-  - aws-cdk installed globally
+  - `aws-cdk` installed globally
 - `npm` installed
 - Have handy your
 
