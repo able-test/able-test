@@ -13,11 +13,11 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
   - aws-cdk installed globally
 - `npm` installed
 - Have handy your
-  - Cloudflare EMAIL
-  - Cloudflare GLOBAL API_KEY
-  - Cloudflare ACCOUNT_ID
-  - Cloudflare ZONE_ID for the site you will be testing against
-  - Have your Cloudflare Pages set to deploy all branches to preview branches (the default)
+  - Cloudflare `EMAIL`
+  - Cloudflare `GLOBAL API_KEY`
+  - Cloudflare `ACCOUNT_ID`
+  - Cloudflare `ZONE_ID` for the site you will be testing against
+  - Have your Cloudflare Pages set to **deploy all branches** to preview branches (the default)
 
 #### TO USE
 
@@ -29,12 +29,12 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 
 3. `able setup` - Setup of Umami server infrastructure (if selected) takes approximately 20-25 minutes.
 
-4. `able config` - This will generate a file called ableConfig.json that you will fill in with your split test configurations.
+4. `able config` - This will generate a file called `ableConfig.json` that you will fill in with your split test configurations.
    If you are using the Umami Dashboard, log in using `admin` and `umami` and set up your destinations there under `settings->add website` and copy the script tags into the
-   appropriate variants in the ableConfig.json file. Be careful to nest your single quotes inside your double quotes and not vice-versa ;)
+   appropriate variants in the `ableConfig.json` file. Be careful to nest your single quotes inside your double quotes and not vice-versa ;)
 
 5. Create and push your test branches to github and Cloudflare where they will be deployed to preview branches. Enter these URLS, which are going to match the branch name
-   along with the Cloudflare pages site name; ie, test.mysite.pages.dev, into the ableConfig.json file.
+   along with the Cloudflare pages site name; ie, `test.mysite.pages.dev`, into the `ableConfig.json` file.
 
 6. `able deploy` to deploy the split test to Cloudflare. This will take approximately 5-10 seconds.
 
