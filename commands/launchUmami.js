@@ -14,7 +14,7 @@ async function launchUmami() {
 
     const basePath = (await getPrefix()).stdout
       .toString()
-      .replace(/\r\n\t\v/g, "");
+      .replace(/[\r\n\t\v]/g, "");
 
     spawnSync(
       "cdk",

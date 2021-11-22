@@ -4,6 +4,7 @@ const {
 } = require("@aws-sdk/client-elastic-load-balancing-v2");
 const axios = require("axios");
 const configDir = require("../../utils/configDir.js");
+const writeToEnv = require("../../utils/writeToEnv.js");
 require("dotenv").config({ path: `${configDir}/.env` });
 
 async function getLoadBalancerDNSName() {
@@ -34,7 +35,7 @@ async function createLoadBalancerDNSRecord(dnsName) {
   };
   console.log("Create record in Cloudflare");
   try {
-    await axios.post(
+    const response = await axios.post(
       `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`, // TODO: MAKE DYNAMIC
       JSON.stringify(body),
       {
@@ -45,6 +46,7 @@ async function createLoadBalancerDNSRecord(dnsName) {
         },
       }
     );
+    writeToEnv({ UMAMI_DNS_ID: response.data.result.id });
     console.log("Success");
   } catch (e) {
     console.log(e);
