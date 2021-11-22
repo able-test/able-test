@@ -8,6 +8,7 @@ async function removeDNSRecord(recordId) {
     const API_KEY = process.env.API_KEY;
     const ZONE_ID = process.env.ZONE_ID;
     const DNS_ID = process.env.DNS_ID;
+    const UMAMI_DNS_ID = process.env.UMAMI_DNS_ID;
 
     const url = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${DNS_ID}`;
     const headers = {
@@ -17,6 +18,11 @@ async function removeDNSRecord(recordId) {
     };
 
     await axios.delete(url, { headers });
+
+    if (UMAMI_DNS_ID) {
+      const url2 = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${UMAMI_DNS_ID}`;
+      await axios.delete(url2, { headers });
+    }
   } catch (err) {
     console.log(err);
   }

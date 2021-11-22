@@ -1,4 +1,4 @@
-const { spawnSync } = require("child_process");
+const { execSync, spawnSync } = require("child_process");
 
 const removeCertificate = require("../aws/sdk/removeCertificate");
 const removeDNSRecord = require("../cloudflare/removeDNSRecord");
@@ -11,11 +11,10 @@ async function destroyUmami() {
   try {
     const basePath = (await getPrefix()).stdout
       .toString()
-      .replace(/\r\n\t\v/g, "");
+      .replace(/[\r\n\t\v]/g, "");
 
-    spawnSync(
-      "cdk",
-      ["destroy"],
+    execSync(
+      "cdk destroy",
       {
         stdio: "inherit",
         cwd: basePath + "/lib/node_modules/able",
@@ -28,12 +27,14 @@ async function destroyUmami() {
         }
       }
     );
-
-    removeDNSRecord();
-    removeCertificate();
   } catch (err) {
     console.log(err);
   }
 }
 
-module.exports = destroyUmami;
+(async () => {
+  await destroyUmami();
+
+  removeCertificate();
+  removeDNSRecord();
+})();

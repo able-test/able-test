@@ -52,10 +52,13 @@ class MyEcsConstructStack extends cdk.Stack {
       engine: rds.DatabaseInstanceEngine.postgres({
         version: PostgresEngineVersion.VER_13,
       }),
-      instanceClass: ec2.InstanceType.of(
-        ec2.InstanceClass.BURSTABLE2,
-        ec2.InstanceSize.SMALL
+      instanceType: ec2.InstanceType.of(
+        ec2.InstanceClass.T3,
+        ec2.InstanceSize.MICRO
       ),
+      allocatedStorage: 20,
+      maxAllocatedStorage: 64,
+      storageType: rds.StorageType.GP2,
       databaseName: "umamidb",
       credentials: rds.Credentials.fromSecret(databaseCredentialsSecret),
       port: 5432,
