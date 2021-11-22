@@ -22,6 +22,7 @@
     "aws-cdk": "1.132.0"
   },
   "dependencies": {
+    "@aws-cdk/assertions": "1.132.0",
     "@aws-cdk/aws-certificatemanager": "^1.132.0",
     "@aws-cdk/aws-cloudfront": "^1.132.0",
     "@aws-cdk/aws-ec2": "^1.132.0",
@@ -37,6 +38,7 @@
     "@aws-sdk/client-elastic-load-balancing-v2": "^3.41.0",
     "@aws-sdk/client-secrets-manager": "^3.41.0",
     "aws-sdk": "^2.1032.0",
+    "aws-cdk": "1.132.0",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
