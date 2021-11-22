@@ -45,8 +45,8 @@ async function launchUmami() {
       }
     );
 
-    attachLoadBalancer();
-    insertTables();
+    await attachLoadBalancer();
+    await insertTables();
   } catch (err) {
     console.error(err);
   }

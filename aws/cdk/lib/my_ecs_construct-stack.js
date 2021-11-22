@@ -6,6 +6,7 @@ const rds = require("@aws-cdk/aws-rds");
 const secretsManager = require("@aws-cdk/aws-secretsmanager");
 const cm = require("@aws-cdk/aws-certificatemanager");
 const configDir = require("../../../utils/configDir.js");
+const bcrypt = require("bcrypt");
 const { PostgresEngineVersion } = require("@aws-cdk/aws-rds");
 require("dotenv").config({ path: `${configDir}/.env` });
 
@@ -90,7 +91,7 @@ class MyEcsConstructStack extends cdk.Stack {
           environment: {
             DATABASE_URL: databaseUrl,
             DATABASE_TYPE: "postgresql",
-            HASH_SALT: "asfdasdf123",
+            HASH_SALT: bcrypt.genSaltSync(10),
           },
         },
         loadBalancerName: "AbleUmamiLB",
