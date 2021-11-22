@@ -38,6 +38,7 @@
     "@aws-sdk/client-secrets-manager": "^3.41.0",
     "aws-sdk": "^2.1032.0",
     "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "dotenv": "^10.0.0",
