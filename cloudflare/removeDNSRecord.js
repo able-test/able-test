@@ -1,6 +1,7 @@
 const axios = require("axios");
 const configDir = require("../utils/configDir");
 require("dotenv").config({ path: `${configDir}/.env` });
+const removeEnvVariables = require("../../utils/removeEnvVariables.js");
 
 async function removeDNSRecord() {
   try {
@@ -18,11 +19,13 @@ async function removeDNSRecord() {
     };
 
     await axios.delete(url, { headers });
+    removeEnvVariables(['DNS_ID'])
     console.log("Certificate validation record deleted")
     if (UMAMI_DNS_ID) {
       const url2 = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${UMAMI_DNS_ID}`;
       await axios.delete(url2, { headers });
       console.log("Cloudflare record for Umami dashboard deleted")
+      removeEnvVariables(['UMAMI_DNS_ID'])
     }
 
   } catch (err) {
