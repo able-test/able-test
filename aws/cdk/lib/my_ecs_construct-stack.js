@@ -64,7 +64,7 @@ class MyEcsConstructStack extends cdk.Stack {
       credentials: rds.Credentials.fromSecret(databaseCredentialsSecret),
       port: 5432,
       vpc,
-      vpcPlacement: { subnetType: ec2.SubnetType.PUBLIC },
+      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
     });
 
     postgres.connections.allowFromAnyIpv4(ec2.Port.tcp(5432));
