@@ -4,6 +4,7 @@ const {
   ListCertificatesCommand,
 } = require("@aws-sdk/client-acm");
 const configDir = require("../../utils/configDir.js");
+const removeEnvVariables = require("../../utils/removeEnvVariables.js");
 require("dotenv").config({ path: `${configDir}/.env` });
 
 async function getCertificate(domainName) {
@@ -34,6 +35,7 @@ async function removeCertificate() {
 
     if (response["$metadata"].httpStatusCode === 200) {
       console.log("Certificate successfully removed");
+      removeEnvVariables(['CERTIFICATE_ARN'])
     }
   } catch (err) {
     console.log(err);
