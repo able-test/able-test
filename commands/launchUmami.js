@@ -27,7 +27,7 @@ async function launchUmami() {
         console.log(stdout);
         console.log(stderr);
         if (error !== null) {
-          console.log("exec error: " + error);
+          console.log(error);
         }
       }
     );
@@ -40,7 +40,7 @@ async function launchUmami() {
         console.log(stdout);
         console.log(stderr);
         if (error !== null) {
-          console.log("exec error: " + error);
+          console.log(error);
         }
       }
     );

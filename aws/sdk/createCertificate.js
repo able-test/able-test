@@ -12,7 +12,7 @@ async function requestCertificate() {
   const client = new acm.ACMClient({ region: "us-east-1" });
   const DOMAIN = process.env.DOMAIN;
   const input = {
-    DomainName: `ableUmami.${DOMAIN}`, // TODO: MAKE DYNAMIC
+    DomainName: `ableUmami.${DOMAIN}`,
     ValidationMethod: "DNS",
   };
   const command = new acm.RequestCertificateCommand(input);
@@ -53,19 +53,19 @@ async function createDNSRecord({ name, value }) {
     content: value,
     ttl: 1,
   };
-  console.log("Create DNS entry in Cloudflare");
+  console.log("Creating record in Cloudflare for certificate validation");
   const response = await axios.post(
-    `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`, // TODO: MAKE DYNAMIC
+    `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`,
     JSON.stringify(body),
     {
       headers: {
-        "X-Auth-Email": EMAIL, // TODO: MAKE DYNAMIC
-        "X-Auth-Key": API_KEY, // TODO: MAKE DYNAMIC
+        "X-Auth-Email": EMAIL,
+        "X-Auth-Key": API_KEY,
         "Content-Type": "application/json",
       },
     }
   );
-
+  console.log("Certificate validation record created")
   writeToEnv({ DNS_ID: response.data.result.id });
 }
 
@@ -100,7 +100,7 @@ async function createCertificate() {
   await createDNSRecord(certificateDetails);
   writeToEnv({ CERTIFICATE_ARN: certificateArn });
   await waitUntilCertificateValidated(certificateArn);
-  console.log("Success");
+  console.log("Certificate successfully created and validated");
 }
 
 module.exports = createCertificate;
