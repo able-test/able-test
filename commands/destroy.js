@@ -20,6 +20,18 @@ const destroy = async () => {
     DOMAIN: process.env.DOMAIN,
   };
 
+  if (process.env.DNS_ID) {
+    setup.DNS_ID = process.env.DNS_ID;
+  }
+
+  if (process.env.CERTIFICATE_ARN) {
+    setup.CERTIFICATE_ARN = process.env.CERTIFICATE_ARN;
+  }
+
+  if (process.env.UMAMI_DNS_ID) {
+    setup.UMAMI_DNS_ID = process.env.UMAMI_DNS_ID;
+  }
+
   await removeKVNamespace();
   await removeWorker();
 
