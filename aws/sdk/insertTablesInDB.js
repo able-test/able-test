@@ -37,14 +37,13 @@ function createDbConnectionString({ dbname, port, username, password, host }) {
 async function insertTables() {
   const credentials = await getDatabaseCredentials();
   const connectionString = createDbConnectionString(credentials);
-  console.log(connectionString);
   const client = new Client({ connectionString });
   client.connect();
   client.query(SCHEMA_SQL, (err, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log("RDS Success");
+      console.log("Umami database initialized");
     }
     client.end();
   });

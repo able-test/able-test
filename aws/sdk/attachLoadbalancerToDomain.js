@@ -33,21 +33,21 @@ async function createLoadBalancerDNSRecord(dnsName) {
     content: dnsName,
     ttl: 1,
   };
-  console.log("Create record in Cloudflare");
+  console.log("Creating record in Cloudflare for Umami dashboard");
   try {
     const response = await axios.post(
-      `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`, // TODO: MAKE DYNAMIC
+      `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`,
       JSON.stringify(body),
       {
         headers: {
-          "X-Auth-Email": EMAIL, // TODO: MAKE DYNAMIC
-          "X-Auth-Key": API_KEY, // TODO: MAKE DYNAMIC
+          "X-Auth-Email": EMAIL,
+          "X-Auth-Key": API_KEY,
           "Content-Type": "application/json",
         },
       }
     );
     writeToEnv({ UMAMI_DNS_ID: response.data.result.id });
-    console.log("Success");
+    console.log("Cloudflare record created for Umami dashboard");
   } catch (e) {
     console.log(e);
   }

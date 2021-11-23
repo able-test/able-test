@@ -67,7 +67,7 @@ const questions = (apiKey, email, accountId, zoneId, domain, deployUmami) => {
     {
       type: "confirm",
       name: "DEPLOY_UMAMI",
-      message: "Would you like an Umami dashboard",
+      message: "Would you like to use Umami analytics?",
       initial: true,
     },
   ];
@@ -76,7 +76,7 @@ const questions = (apiKey, email, accountId, zoneId, domain, deployUmami) => {
 (async () => {
   createHiddenAbleDir(); // ~/.Able
 
-  // check if users credentials are already available to preload into the prompts
+  // Check if users credentials are already available to preload into the prompts
   const apikey = process.env.API_KEY;
   const email = process.env.EMAIL;
   const accountId = process.env.ACCOUNT_ID;
@@ -118,14 +118,14 @@ const questions = (apiKey, email, accountId, zoneId, domain, deployUmami) => {
         // Append to the .env file itself as well as the process.env values
         writeToEnv(userInput);
         if (userInput.DEPLOY_UMAMI) {
-          console.log("deploying Umami..."); // Insert new function here to deploy AWS Site
+          console.log("deploying Umami...");
           await launchUmami();
         }
         configComplete();
         return;
       }
     } else {
-      log("\nCanceled Able setup.\n");
+      log("\nAble setup cancelled\n");
       log("Re-run `able setup` to add your credentials before deploying.\n");
     }
   })();
