@@ -8,7 +8,7 @@ const envString = fs.readFileSync(
   { encoding: "utf8" }
 );
 
-function removeEnvVariables(keys) { // keys is an array of strings
+async function removeEnvVariables(keys) { // keys is an array of strings
   let result = "";
   const pairStrings = envString.split('\n')
   .filter(pair => pair !== "");
@@ -18,7 +18,8 @@ function removeEnvVariables(keys) { // keys is an array of strings
       result = result + `${key}=${value}\n`;
     }
   })
-  fs.writeFileSync(`${configDir}/.env`, result);
+  console.log(result);
+  await fs.writeFileSync(`${configDir}/.env`, result);
 }
 
 module.exports = removeEnvVariables;

@@ -27,16 +27,21 @@ async function removeCertificate() {
   try {
     const client = new ACMClient({ region: "us-east-1" });
     const certificate = await getCertificate(`ableUmami.${process.env.DOMAIN}`);
-    const input = {
-      CertificateArn: certificate.CertificateArn,
-    };
-    const command = new DeleteCertificateCommand(input);
-    const response = await client.send(command);
 
-    if (response["$metadata"].httpStatusCode === 200) {
-      console.log("Certificate successfully removed");
-      removeEnvVariables(['CERTIFICATE_ARN'])
+    if (!certificate) {
+      console.log('There is no certificate to remove')
+      return;
     }
+
+   const input = {
+     CertificateArn: certificate.CertificateArn,
+   };
+   const command = new DeleteCertificateCommand(input);
+   const response = await client.send(command);
+
+   if (response["$metadata"].httpStatusCode === 200) {
+     console.log("Certificate successfully removed");
+   }
   } catch (err) {
     console.log(err);
   }
