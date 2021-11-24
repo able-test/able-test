@@ -52,7 +52,7 @@ const questions = [
   {
     type: "text",
     name: "DOMAIN_PATTERN",
-    message: "Enter your domain matching pattern",
+    message: "Enter your domain matching pattern Eg. *example.com/*",
     initial: "",
   },
 ];
