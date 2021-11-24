@@ -35,22 +35,6 @@ const missingAbleConfigMessage = () => {
 const questions = [
   {
     type: "text",
-    name: "TITLE",
-    message: "Enter a title for your remote config",
-    initial: "",
-    validate: (value) =>
-      value !== value.toLowerCase() ? "Title must be lowercase only" : true,
-  },
-  {
-    type: "text",
-    name: "WORKER_SCRIPT_NAME",
-    message: "Enter a name for your worker",
-    initial: "",
-    validate: (value) =>
-      value !== value.toLowerCase() ? "Name must be lowercase only" : true,
-  },
-  {
-    type: "text",
     name: "DOMAIN_PATTERN",
     message: "Enter your domain matching pattern Eg. *example.com/*",
     initial: "",
@@ -110,13 +94,11 @@ const deploy = async () => {
       verify.value.toLowerCase() === "y"
     ) {
       if (
-        userInput.TITLE &&
-        userInput.WORKER_SCRIPT_NAME &&
         userInput.DOMAIN_PATTERN
       ) {
-        userInput = Object.fromEntries(
-          Object.entries(userInput).map((entry) => [entry[0], entry[1].trim()])
-        );
+        userInput.DOMAIN_PATTERN = userInput.DOMAIN_PATTERN.trim();
+        userInput.WORKER_SCRIPT_NAME = 'able-test-worker'
+        userInput.TITLE = 'able-test-kv'
         writeToEnv(userInput);
         await deploy();
         return;
