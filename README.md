@@ -28,7 +28,7 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 
 #### TO USE
 
-1. `npm install -g able`
+1. `npm i -g @abletest/able` (may have to use `sudo`)
 
 2. IF USING UMAMI DASHBOARD:
 
