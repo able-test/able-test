@@ -4,3 +4,4 @@ ableConfig.json
 **/.cdk.staging
 **/cdk.out
 **/cdk.context.json
+referenceConfig.json
