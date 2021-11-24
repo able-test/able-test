@@ -5,7 +5,7 @@
   "main": "README.md",
   "bin": {
     "able": "bin/able.js",
-    "my_ecs_construct": "aws/cdk/bin/my_ecs_construct.js"
+    "umami-deploy": "aws/cdk/bin/umami-deploy.js"
   },
   "repository": {
     "type": "git",
