@@ -10,13 +10,7 @@ const bcrypt = require("bcrypt");
 const { PostgresEngineVersion } = require("@aws-cdk/aws-rds");
 require("dotenv").config({ path: `${configDir}/.env` });
 
-class MyEcsConstructStack extends cdk.Stack {
-  /**
-   *
-   * @param {cdk.Construct} scope
-   * @param {string} id
-   * @param {cdk.StackProps=} props
-   */
+class UmamiDeploy extends cdk.Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
     const cert = cm.Certificate.fromCertificateArn(
@@ -26,13 +20,14 @@ class MyEcsConstructStack extends cdk.Stack {
     );
 
     const vpc = new ec2.Vpc(this, "AbleUmamiVpc", {
-      maxAzs: 3, // Default is all AZs in region
+      maxAzs: 3,
     });
 
     const cluster = new ecs.Cluster(this, "AbleUmamiCluster", {
       vpc: vpc,
     });
 
+    // Create database user credentials
     const databaseCredentialsSecret = new secretsManager.Secret(
       this,
       "umami-DBCredentialsSecret",
@@ -49,6 +44,7 @@ class MyEcsConstructStack extends cdk.Stack {
       }
     );
 
+    // Create postgres database
     const postgres = new rds.DatabaseInstance(this, "UmamiPostgres", {
       engine: rds.DatabaseInstanceEngine.postgres({
         version: PostgresEngineVersion.VER_13,
@@ -80,9 +76,9 @@ class MyEcsConstructStack extends cdk.Stack {
       this,
       "AbleUmami",
       {
-        cluster: cluster, // Required
-        cpu: 256, // Default is 256
-        desiredCount: 1, // Default is 1
+        cluster: cluster,
+        cpu: 256,
+        desiredCount: 1,
         taskImageOptions: {
           image: ecs.ContainerImage.fromRegistry(
             "ghcr.io/mikecao/umami:postgresql-latest"
@@ -96,11 +92,11 @@ class MyEcsConstructStack extends cdk.Stack {
         },
         loadBalancerName: "AbleUmamiLB",
         certificate: cert,
-        memoryLimitMiB: 512, // Default is 512
-        publicLoadBalancer: true, // Default is false
+        memoryLimitMiB: 512,
+        publicLoadBalancer: true,
       }
     );
   }
 }
 
-module.exports = { MyEcsConstructStack };
+module.exports = { UmamiDeploy };

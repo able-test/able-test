@@ -1,5 +1,5 @@
 {
-  "app": "node aws/cdk/bin/my_ecs_construct.js",
+  "app": "node aws/cdk/bin/umami-deploy.js",
   "requireApproval": "never",
   "context": {
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
