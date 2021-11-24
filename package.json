@@ -1,5 +1,5 @@
 {
-  "name": "able-test",
+  "name": "@abletest/able",
   "version": "0.0.1",
   "description": "A/B Test Deployment Platform with Umami Server Deployment",
   "main": "README.md",
