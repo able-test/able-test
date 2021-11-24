@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const { SystemControl } = require("@aws-sdk/client-ecs");
 const { program } = require("commander");
 
 program.version("0.0.1");
@@ -107,8 +106,8 @@ program
   );
 
 program
-  .command("e")
-  .alias("destroy")
+  .command("t")
+  .alias("destroy-test")
   .description("Teardown AB Test on Cloudflare")
   .action(() => require("../commands/destroy.js"))
   .addHelpText(
@@ -121,8 +120,8 @@ program
   `
   );
 program
-  .command("t")
-  .alias("teardown")
+  .command("w")
+  .alias("destroy-umami")
   .description("Teardown Umami Application from AWS")
   .action(() => require("../commands/destroyUmami.js"))
   .addHelpText(
