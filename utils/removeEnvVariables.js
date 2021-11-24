@@ -18,7 +18,6 @@ async function removeEnvVariables(keys) { // keys is an array of strings
       result = result + `${key}=${value}\n`;
     }
   })
-  console.log(result);
   await fs.writeFileSync(`${configDir}/.env`, result);
 }
 

@@ -15,7 +15,7 @@ async function destroyUmami() {
       .replace(/[\r\n\t\v]/g, "");
 
     execSync(
-      "cdk destroy",
+      "cdk destroy -f",
       {
         stdio: "inherit",
         cwd: basePath + "/lib/node_modules/able",

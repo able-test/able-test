@@ -9,19 +9,20 @@ async function removeDNSRecord() {
     const ZONE_ID = process.env.ZONE_ID;
     const DNS_ID = process.env.DNS_ID;
     const UMAMI_DNS_ID = process.env.UMAMI_DNS_ID;
+    const headers = {
+      "X-Auth-Email": EMAIL,
+      "X-Auth-Key": API_KEY,
+      "Content-Type": "application/json",
+    };
+
+    if (!DNS_ID && !UMAMI_DNS_ID) {
+      console.log('There are no DNS records to remove');
+    }
 
     if (DNS_ID) {
       const url = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${DNS_ID}`;
-      const headers = {
-        "X-Auth-Email": EMAIL,
-        "X-Auth-Key": API_KEY,
-        "Content-Type": "application/json",
-      };
-
       await axios.delete(url, { headers });
       console.log("Certificate validation record deleted")
-    } else {
-      console.log('There are no DNS records to remove')
     }
 
     if (UMAMI_DNS_ID) {
