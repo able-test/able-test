@@ -53,9 +53,9 @@ in about 30-40 minutes you will have a fully operational split test with a beaut
 
 #### TO TEARDOWN
 
-1. `able destroy` to remove split test from Cloudflare.
+1. `able destroy-test` to remove split test from Cloudflare.
 
-2. `cdk destroy` to teardown Umami server. This process takes approximately 25-30 minutes.
+2. `able destroy-umami` to teardown Umami server. This process takes approximately 25-30 minutes.
 
 #### TO RUN NEW TESTS
 
