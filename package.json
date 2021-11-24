@@ -1,7 +1,7 @@
 {
-  "name": "able",
+  "name": "able-test",
   "version": "0.0.1",
-  "description": "Able AB Testing with Cloudflare",
+  "description": "A/B Test Deployment Platform with Umami Server Deployment",
   "main": "README.md",
   "bin": {
     "able": "bin/able.js",
@@ -9,13 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JWhist/ABle"
+    "url": "https://github.com/able-test/able-test"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cdk": "cdk"
   },
-  "author": "Jordan Whistler, Jenae Janzen, YuJohn Nattrass, Michael Rago",
+  "contributors": [
+    "Jordan Whistler <whistlerjordan@gmail.com>", 
+    "Jenae Janzen <jenaejanzen@gmail.com>", 
+    "YuJohn Nattrass <yujohn.natt@gmail.com>", 
+    "Michael Rago <michael.rago@gmail.com"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@aws-cdk/assertions": "1.132.0",
