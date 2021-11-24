@@ -21,7 +21,7 @@ async function launchUmami() {
       ["synth"],
       {
         stdio: "inherit",
-        cwd: basePath + "/lib/node_modules/able",
+        cwd: basePath + "/lib/node_modules/@abletest/able",
       },
       function (error, stdout, stderr) {
         console.log(stdout);
@@ -35,7 +35,7 @@ async function launchUmami() {
     spawnSync(
       "cdk",
       ["deploy"],
-      { stdio: "inherit", cwd: basePath + "/lib/node_modules/able" },
+      { stdio: "inherit", cwd: basePath + "/lib/node_modules/@abletest/able" },
       function (error, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
