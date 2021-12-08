@@ -16,9 +16,9 @@
     "cdk": "cdk"
   },
   "contributors": [
-    "Jordan Whistler <whistlerjordan@gmail.com>", 
-    "Jenae Janzen <jenaejanzen@gmail.com>", 
-    "YuJohn Nattrass <yujohn.natt@gmail.com>", 
+    "Jordan Whistler <whistlerjordan@gmail.com>",
+    "Jenae Janzen <jenaejanzen@gmail.com>",
+    "YuJohn Nattrass <yujohn.natt@gmail.com>",
     "Michael Rago <michael.rago@gmail.com"
   ],
   "license": "MIT",
@@ -42,8 +42,8 @@
     "@aws-sdk/client-ecs": "^3.41.0",
     "@aws-sdk/client-elastic-load-balancing-v2": "^3.41.0",
     "@aws-sdk/client-secrets-manager": "^3.41.0",
-    "aws-sdk": "^2.1032.0",
     "aws-cdk": "1.132.0",
+    "aws-sdk": "^2.1032.0",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
